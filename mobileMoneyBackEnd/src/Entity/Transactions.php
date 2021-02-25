@@ -64,6 +64,21 @@ class Transactions
      */
     private $fraisSysteme;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactions")
+     */
+    private $clients;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Comptes::class, inversedBy="transactions")
+     */
+    private $comptes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactions")
+     */
+    private $users;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -173,6 +188,42 @@ class Transactions
     public function setFraisSysteme(int $fraisSysteme): self
     {
         $this->fraisSysteme = $fraisSysteme;
+
+        return $this;
+    }
+
+    public function getClients(): ?Clients
+    {
+        return $this->clients;
+    }
+
+    public function setClients(?Clients $clients): self
+    {
+        $this->clients = $clients;
+
+        return $this;
+    }
+
+    public function getComptes(): ?Comptes
+    {
+        return $this->comptes;
+    }
+
+    public function setComptes(?Comptes $comptes): self
+    {
+        $this->comptes = $comptes;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
 
         return $this;
     }
