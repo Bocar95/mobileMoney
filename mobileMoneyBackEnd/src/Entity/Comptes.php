@@ -42,23 +42,30 @@ class Comptes
     private $statut;
 
     /**
-     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="comptes")
-     */
-    private $transactions;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Agences::class, cascade={"persist", "remove"})
-     */
-    private $agence;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="compte")
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="compteDepot")
+     */
+    private $transactionsDepot;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="compteRetrait")
+     */
+    private $transactionsRetrait;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Agences::class, mappedBy="compte", cascade={"persist", "remove"})
+     */
+    private $agences;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
+        $this->transactionsDepot = new ArrayCollection();
+        $this->transactionsRetrait = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,48 +121,6 @@ class Comptes
         return $this;
     }
 
-    /**
-     * @return Collection|Transactions[]
-     */
-    public function getTransactions(): Collection
-    {
-        return $this->transactions;
-    }
-
-    public function addTransaction(Transactions $transaction): self
-    {
-        if (!$this->transactions->contains($transaction)) {
-            $this->transactions[] = $transaction;
-            $transaction->setComptes($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTransaction(Transactions $transaction): self
-    {
-        if ($this->transactions->removeElement($transaction)) {
-            // set the owning side to null (unless already changed)
-            if ($transaction->getComptes() === $this) {
-                $transaction->setComptes(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getAgence(): ?Agences
-    {
-        return $this->agence;
-    }
-
-    public function setAgence(?Agences $agence): self
-    {
-        $this->agence = $agence;
-
-        return $this;
-    }
-
     public function getUsers(): ?Users
     {
         return $this->users;
@@ -164,6 +129,88 @@ class Comptes
     public function setUsers(?Users $users): self
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transactions[]
+     */
+    public function getTransactionsDepot(): Collection
+    {
+        return $this->transactionsDepot;
+    }
+
+    public function addTransactionsDepot(Transactions $transactionsDepot): self
+    {
+        if (!$this->transactionsDepot->contains($transactionsDepot)) {
+            $this->transactionsDepot[] = $transactionsDepot;
+            $transactionsDepot->setCompteDepot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransactionsDepot(Transactions $transactionsDepot): self
+    {
+        if ($this->transactionsDepot->removeElement($transactionsDepot)) {
+            // set the owning side to null (unless already changed)
+            if ($transactionsDepot->getCompteDepot() === $this) {
+                $transactionsDepot->setCompteDepot(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transactions[]
+     */
+    public function getTransactionsRetrait(): Collection
+    {
+        return $this->transactionsRetrait;
+    }
+
+    public function addTransactionsRetrait(Transactions $transactionsRetrait): self
+    {
+        if (!$this->transactionsRetrait->contains($transactionsRetrait)) {
+            $this->transactionsRetrait[] = $transactionsRetrait;
+            $transactionsRetrait->setCompteRetrait($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransactionsRetrait(Transactions $transactionsRetrait): self
+    {
+        if ($this->transactionsRetrait->removeElement($transactionsRetrait)) {
+            // set the owning side to null (unless already changed)
+            if ($transactionsRetrait->getCompteRetrait() === $this) {
+                $transactionsRetrait->setCompteRetrait(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAgences(): ?Agences
+    {
+        return $this->agences;
+    }
+
+    public function setAgences(?Agences $agences): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($agences === null && $this->agences !== null) {
+            $this->agences->setCompte(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($agences !== null && $agences->getCompte() !== $this) {
+            $agences->setCompte($this);
+        }
+
+        $this->agences = $agences;
 
         return $this;
     }

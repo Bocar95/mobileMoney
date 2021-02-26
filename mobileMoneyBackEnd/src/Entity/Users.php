@@ -56,11 +56,6 @@ class Users implements UserInterface
     private $statut = true;
 
     /**
-     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="users")
-     */
-    private $transactions;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Agences::class, inversedBy="users")
      */
     private $agences;
@@ -75,10 +70,21 @@ class Users implements UserInterface
      */
     private $role;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="usersDepot")
+     */
+    private $transactionsDepot;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="usersRetrait")
+     */
+    private $transactionsRetrait;
+
     public function __construct()
     {
-        $this->transactions = new ArrayCollection();
         $this->compte = new ArrayCollection();
+        $this->transactionsDepot = new ArrayCollection();
+        $this->transactionsRetrait = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -210,36 +216,6 @@ class Users implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Transactions[]
-     */
-    public function getTransactions(): Collection
-    {
-        return $this->transactions;
-    }
-
-    public function addTransaction(Transactions $transaction): self
-    {
-        if (!$this->transactions->contains($transaction)) {
-            $this->transactions[] = $transaction;
-            $transaction->setUsers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTransaction(Transactions $transaction): self
-    {
-        if ($this->transactions->removeElement($transaction)) {
-            // set the owning side to null (unless already changed)
-            if ($transaction->getUsers() === $this) {
-                $transaction->setUsers(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getAgences(): ?Agences
     {
         return $this->agences;
@@ -290,6 +266,66 @@ class Users implements UserInterface
     public function setRole(?Roles $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transactions[]
+     */
+    public function getTransactionsDepot(): Collection
+    {
+        return $this->transactionsDepot;
+    }
+
+    public function addTransactionsDepot(Transactions $transactionsDepot): self
+    {
+        if (!$this->transactionsDepot->contains($transactionsDepot)) {
+            $this->transactionsDepot[] = $transactionsDepot;
+            $transactionsDepot->setUsersDepot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransactionsDepot(Transactions $transactionsDepot): self
+    {
+        if ($this->transactionsDepot->removeElement($transactionsDepot)) {
+            // set the owning side to null (unless already changed)
+            if ($transactionsDepot->getUsersDepot() === $this) {
+                $transactionsDepot->setUsersDepot(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Transactions[]
+     */
+    public function getTransactionsRetrait(): Collection
+    {
+        return $this->transactionsRetrait;
+    }
+
+    public function addTransactionsRetrait(Transactions $transactionsRetrait): self
+    {
+        if (!$this->transactionsRetrait->contains($transactionsRetrait)) {
+            $this->transactionsRetrait[] = $transactionsRetrait;
+            $transactionsRetrait->setUsersRetrait($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransactionsRetrait(Transactions $transactionsRetrait): self
+    {
+        if ($this->transactionsRetrait->removeElement($transactionsRetrait)) {
+            // set the owning side to null (unless already changed)
+            if ($transactionsRetrait->getUsersRetrait() === $this) {
+                $transactionsRetrait->setUsersRetrait(null);
+            }
+        }
 
         return $this;
     }

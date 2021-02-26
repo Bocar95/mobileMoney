@@ -46,6 +46,11 @@ class Agences
      */
     private $users;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Comptes::class, inversedBy="agences", cascade={"persist", "remove"})
+     */
+    private $compte;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -130,6 +135,18 @@ class Agences
                 $user->setAgences(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompte(): ?Comptes
+    {
+        return $this->compte;
+    }
+
+    public function setCompte(?Comptes $compte): self
+    {
+        $this->compte = $compte;
 
         return $this;
     }

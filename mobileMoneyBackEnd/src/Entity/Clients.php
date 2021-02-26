@@ -32,18 +32,25 @@ class Clients
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable = true)
      */
     private $numCni;
 
     /**
-     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="clients")
+     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="clientRetrait", cascade="persist")
      */
-    private $transactions;
+    private $transactionsRetrait;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Transactions::class, mappedBy="clientDepot", cascade="persist")
+     */
+    private $transactionsDepot;
 
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
+        $this->transactionsRetrait = new ArrayCollection();
+        $this->transactionsDepot = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,30 +97,61 @@ class Clients
     /**
      * @return Collection|Transactions[]
      */
-    public function getTransactions(): Collection
+    public function getTransactionsRetrait(): Collection
     {
-        return $this->transactions;
+        return $this->transactionsRetrait;
     }
 
-    public function addTransaction(Transactions $transaction): self
+    public function addTransactionsRetrait(Transactions $transactionsRetrait): self
     {
-        if (!$this->transactions->contains($transaction)) {
-            $this->transactions[] = $transaction;
-            $transaction->setClients($this);
+        if (!$this->transactionsRetrait->contains($transactionsRetrait)) {
+            $this->transactionsRetrait[] = $transactionsRetrait;
+            $transactionsRetrait->setClientRetrait($this);
         }
 
         return $this;
     }
 
-    public function removeTransaction(Transactions $transaction): self
+    public function removeTransactionsRetrait(Transactions $transactionsRetrait): self
     {
-        if ($this->transactions->removeElement($transaction)) {
+        if ($this->transactionsRetrait->removeElement($transactionsRetrait)) {
             // set the owning side to null (unless already changed)
-            if ($transaction->getClients() === $this) {
-                $transaction->setClients(null);
+            if ($transactionsRetrait->getClientRetrait() === $this) {
+                $transactionsRetrait->setClientRetrait(null);
             }
         }
 
         return $this;
     }
+
+    /**
+     * @return Collection|Transactions[]
+     */
+    public function getTransactionsDepot(): Collection
+    {
+        return $this->transactionsDepot;
+    }
+
+    public function addTransactionsDepot(Transactions $transactionsDepot): self
+    {
+        if (!$this->transactionsDepot->contains($transactionsDepot)) {
+            $this->transactionsDepot[] = $transactionsDepot;
+            $transactionsDepot->setClientDepot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTransactionsDepot(Transactions $transactionsDepot): self
+    {
+        if ($this->transactionsDepot->removeElement($transactionsDepot)) {
+            // set the owning side to null (unless already changed)
+            if ($transactionsDepot->getClientDepot() === $this) {
+                $transactionsDepot->setClientDepot(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

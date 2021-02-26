@@ -2,13 +2,20 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\TransactionsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TransactionsRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=TransactionsRepository::class)
+ * @ApiResource(
+ *  collectionOperations={
+ *    "post"={"path"="/user/transactions"
+ *    }
+ *  }
+ * )
+ * @UniqueEntity("codeTrans")
  */
 class Transactions
 {
@@ -65,19 +72,34 @@ class Transactions
     private $fraisSysteme;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactions")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactionsDepot")
      */
-    private $clients;
+    private $usersDepot;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Comptes::class, inversedBy="transactions")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactionsRetrait")
      */
-    private $comptes;
+    private $usersRetrait;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactions")
+     * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactionsRetrait", cascade="persist")
      */
-    private $users;
+    private $clientRetrait;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactionsDepot", cascade="persist")
+     */
+    private $clientDepot;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Comptes::class, inversedBy="transactionsDepot")
+     */
+    private $compteDepot;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Comptes::class, inversedBy="transactionsRetrait")
+     */
+    private $compteRetrait;
 
     public function getId(): ?int
     {
@@ -192,39 +214,76 @@ class Transactions
         return $this;
     }
 
-    public function getClients(): ?Clients
+    public function getUsersDepot(): ?Users
     {
-        return $this->clients;
+        return $this->usersDepot;
     }
 
-    public function setClients(?Clients $clients): self
+    public function setUsersDepot(?Users $usersDepot): self
     {
-        $this->clients = $clients;
+        $this->usersDepot = $usersDepot;
 
         return $this;
     }
 
-    public function getComptes(): ?Comptes
+    public function getUsersRetrait(): ?Users
     {
-        return $this->comptes;
+        return $this->usersRetrait;
     }
 
-    public function setComptes(?Comptes $comptes): self
+    public function setUsersRetrait(?Users $usersRetrait): self
     {
-        $this->comptes = $comptes;
+        $this->usersRetrait = $usersRetrait;
 
         return $this;
     }
 
-    public function getUsers(): ?Users
+    public function getClientRetrait(): ?Clients
     {
-        return $this->users;
+        return $this->clientRetrait;
     }
 
-    public function setUsers(?Users $users): self
+    public function setClientRetrait(?Clients $clientRetrait): self
     {
-        $this->users = $users;
+        $this->clientRetrait = $clientRetrait;
 
         return $this;
     }
+
+    public function getClientDepot(): ?Clients
+    {
+        return $this->clientDepot;
+    }
+
+    public function setClientDepot(?Clients $clientDepot): self
+    {
+        $this->clientDepot = $clientDepot;
+
+        return $this;
+    }
+
+    public function getCompteDepot(): ?Comptes
+    {
+        return $this->compteDepot;
+    }
+
+    public function setCompteDepot(?Comptes $compteDepot): self
+    {
+        $this->compteDepot = $compteDepot;
+
+        return $this;
+    }
+
+    public function getCompteRetrait(): ?Comptes
+    {
+        return $this->compteRetrait;
+    }
+
+    public function setCompteRetrait(?Comptes $compteRetrait): self
+    {
+        $this->compteRetrait = $compteRetrait;
+
+        return $this;
+    }
+
 }
