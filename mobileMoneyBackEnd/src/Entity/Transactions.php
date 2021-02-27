@@ -5,13 +5,20 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TransactionsRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=TransactionsRepository::class)
  * @ApiResource(
  *  collectionOperations={
- *    "post"={"path"="/user/transactions"
+ *    "post"={
+ *          "path"="/user/transactions"
+ *    }
+ *  },
+ *  itemOperations={
+ *    "put"={
+ *          "path"="/user/transactions/retrait"
  *    }
  *  }
  * )

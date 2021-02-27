@@ -21,7 +21,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TransactionsController extends AbstractController
 {
     /**
-     * @Route("/api/user/transactions", name="addDepot", methods={"POST"})
+     * @Route(path="/api/user/transactions", name="addDepot", methods={"POST"}
+     *)
      */
     public function addDepot(Request $request,SerializerInterface $serializer ,EntityManagerInterface $manager,TransactionsRepository $transRepo, UsersRepository $usersRepo, ComptesRepository $compteRepo, ClientsRepository $clientsRepo)
     {
@@ -49,7 +50,7 @@ class TransactionsController extends AbstractController
         //Frais total de l'opération.
         $fraisOperationtotal = $depotTransTab["montant"] + $fraisEnvoi;
 
-        //Recupération du token pour distinguer le user qui fait l'opération.
+        //Recupération du token pour distinguer le user qui fait le depot.
         $token = substr($request->server->get("HTTP_AUTHORIZATION"), 7);
         $token = explode(".",$token);
 
@@ -70,15 +71,15 @@ class TransactionsController extends AbstractController
         $soldeCompte = $compteDepot->getSolde();
 
         //on détermine si le compte a suffisament d'argent pour frais l'opération de dépot
-        if ($soldeCompte < $fraisOperationtotal){
+        if ($soldeCompte < 5000){
           return $this->json(
             ["message" => "Désolé, mais le solde de votre compte est insuffisant pour cette opération."],
             Response::HTTP_FORBIDDEN
           );
         }
 
-        //si oui on soustrait l'argent de l'opération sur son compte
-        $compteAvecNewSolde = $compteDepot->setSolde($soldeCompte - $fraisOperationtotal);
+        //si oui on ajoute l'argent de l'opération sur son compte
+        $compteAvecNewSolde = $compteDepot->setSolde($soldeCompte + $fraisOperationtotal);
 
         //on fait les set()
         $depotTrans->setMontant($depotTransTab["montant"]);
@@ -131,6 +132,85 @@ class TransactionsController extends AbstractController
       }
       else{
         return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
+    /**
+     * @Route("/api/user/transactions/retrait", name="retraitTrans", methods={"PUT"})
+     */
+    public function retraitTrans(Request $request,SerializerInterface $serializer ,EntityManagerInterface $manager,TransactionsRepository $transRepo, UsersRepository $usersRepo, ClientsRepository $clientsRepo)
+    {
+      $retraitTrans = new Transactions();
+
+      if ($this->isGranted("EDIT",$retraitTrans)) {
+
+        $retraitTransJson = $request->getContent();
+        $retraitTransTab = $serializer->decode($retraitTransJson, 'json');
+
+        $transaction = $transRepo->findOneBy([
+          "codeTrans" => $retraitTransTab["codeTrans"]
+        ]);
+
+        if ($transaction){
+
+          $dateRetrait = $transaction->getDateRetrait();
+
+          if ($dateRetrait != null){
+            return $this->json(
+              ["message" => "Désolé, mais cette transaction de retrait a déja été faite."],
+              Response::HTTP_FORBIDDEN
+            );
+          }
+
+          $clientRetrait = $clientsRepo->findOneBy([
+            "telephone" => $retraitTransTab["telephone"]
+          ]);
+
+          if ($clientRetrait){
+            $clientRetrait->setNumCni($retraitTransTab["numCni"]);
+            $clientRetrait->addTransactionsRetrait($transaction);
+            $transaction->setClientRetrait($clientRetrait);
+          }else{
+            return $this->json(
+              ["message" => "Désolé, mais le numéro de téléphone ne correspond pas."],
+              Response::HTTP_FORBIDDEN
+            );
+          }
+
+          //Recupération du token pour distinguer le user qui fait le retrait.
+          $token = substr($request->server->get("HTTP_AUTHORIZATION"), 7);
+          $token = explode(".",$token);
+          if (isset($token[1])){
+            $payload = $token[1];
+            $payload = json_decode(base64_decode($payload));
+
+            $userRetrait = $usersRepo->findOneBy([
+              "telephone" => $payload->username
+            ]);
+            $transaction->setUsersRetrait($userRetrait);
+          }
+
+          $montantTransactions = $transaction->getMontant();
+          $soldeCompteUserRetrait = $userRetrait->getAgences()->getCompte()->getSolde();
+
+          if ($soldeCompteUserRetrait < $montantTransactions){
+            return $this->json(
+              ["message" => "Désolé, mais votre solde de compte est insuffisant pour faire la transaction de retrait."],
+              Response::HTTP_FORBIDDEN
+            );
+          }
+
+          $newSoldeCompte = $userRetrait->getAgences()->getCompte()->setSolde($soldeCompteUserRetrait - $montantTransactions);
+
+          $date = new DateTime();
+          $date->format('Y-m-d H:i:s');
+          $transaction->setDateRetrait($date);
+          $transaction->setCompteRetrait($userRetrait->getAgences()->getCompte());
+        }
+
+        $manager->persist($transaction);
+        $manager->flush();
+        return new JsonResponse("success",Response::HTTP_CREATED,[],true);
       }
     }
 }

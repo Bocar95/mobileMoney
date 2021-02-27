@@ -7,11 +7,18 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * collectionOperations={
+ *    "post"={
+ *          "path"="/user"
+ *    }
+ *  }
+ * )
  */
 class Users implements UserInterface
 {
@@ -56,7 +63,7 @@ class Users implements UserInterface
     private $statut = true;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Agences::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Agences::class, inversedBy="users", cascade="persist")
      */
     private $agences;
 
