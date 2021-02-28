@@ -44,11 +44,13 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getTransByIdUser"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getTransByIdUser"})
      */
     private $nom;
 

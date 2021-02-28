@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\Users;
 use App\Entity\Clients;
+use App\Entity\Comptes;
 use App\Entity\Transactions;
 use App\Repository\UsersRepository;
 use App\Service\transactionService;
@@ -206,11 +208,157 @@ class TransactionsController extends AbstractController
           $date->format('Y-m-d H:i:s');
           $transaction->setDateRetrait($date);
           $transaction->setCompteRetrait($userRetrait->getAgences()->getCompte());
+
+          $manager->persist($transaction);
+          $manager->flush();
+          return new JsonResponse("success",Response::HTTP_CREATED,[],true);
+        }else{
+          return $this->json(
+            ["message" => "Désolé, mais ce code de transaction n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
         }
 
-        $manager->persist($transaction);
-        $manager->flush();
-        return new JsonResponse("success",Response::HTTP_CREATED,[],true);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
       }
     }
+
+    /**
+     * @Route("/api/user/transaction/{code}", name="getTransByCode", methods={"GET"})
+     */
+    public function getTransByCode($code, TransactionsRepository $transRepo)
+    {
+      $transaction = new Transactions();
+
+      if ($this->isGranted("VIEW",$transaction)) {
+        $transaction = $transRepo->findOneBy([
+          "codeTrans" => $code
+        ]);
+
+        if (!$transaction){
+          return $this->json(
+            ["message" => "Désolé, mais ce code de transaction n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
+        }
+
+        return $this->json($transaction, 200, [], ["groups" => ["getTransByCode"]]);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
+    /**
+     * @Route(path="/api/user/{id}/transactions", name="getTransByIdUser", methods={"GET"})
+     */
+    public function getTransByIdUser($id, SerializerInterface $serializer, UsersRepository $usersRepo, TransactionsRepository $transRepo)
+    {
+      $user = new Users();
+
+      if ($this->isGranted("VIEW",$user)) {
+
+        $user = $usersRepo->findOneBy([
+          "id" => $id
+        ]);
+
+        $transDepot [] = $transRepo->findBy([
+          "usersDepot" => $id
+        ]);
+
+        $transRetrait [] = $transRepo->findBy([
+          "usersRetrait" => $id
+        ]);
+
+        if (!$user){
+          return $this->json(
+            ["message" => "Désolé, mais ce user n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
+        }
+
+        if($transDepot){
+          $transactions []= [
+            "depot"=>$transDepot
+          ];
+        }
+
+        if($transRetrait){
+          $transactions []= [
+            "retrait"=>$transRetrait
+          ];
+        }
+
+        return $this->json($transactions, 200, [], ["groups" => ["getTransByIdUser"]]);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
+    /**
+     * @Route(path="/api/admin/compte/{id}/transactions", name="getTransByIdCompte", methods={"GET"})
+     */
+    public function getTransByIdCompte($id, SerializerInterface $serializer, ComptesRepository $compteRepo, TransactionsRepository $transRepo)
+    {
+      $compte = new Comptes();
+
+      if ($this->isGranted("VIEW",$compte)) {
+
+        $compte = $compteRepo->findOneBy([
+          "id" => $id
+        ]);
+
+        $transDepot [] = $transRepo->findBy([
+          "compteDepot" => $id
+        ]);
+
+        $transRetrait [] = $transRepo->findBy([
+          "compteRetrait" => $id
+        ]);
+
+        if (!$compte){
+          return $this->json(
+            ["message" => "Désolé, mais ce compte n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
+        }
+
+        if($transDepot){
+          $transactions []= [
+            "depot"=>$transDepot
+          ];
+        }
+
+        if($transRetrait){
+          $transactions []= [
+            "retrait"=>$transRetrait
+          ];
+        }
+
+        return $this->json($transactions, 200, [], ["groups" => ["getTransByIdCompte"]]);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
+    /**
+     * @Route(path="/api/user/frais/{montant}", name="getFraisByMontant", methods={"GET"})
+     */
+    public function getFraisByMontant($montant, TransactionsRepository $transRepo)
+    {
+      $compte = new Comptes();
+      $service = new transactionService($transRepo);
+      if ($this->isGranted("VIEW",$compte)) {
+        $fraisEnvoi = $service->fraisEnvoi($montant);
+        return $this->json($fraisEnvoi);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
 }

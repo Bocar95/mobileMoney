@@ -10,7 +10,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  itemOperations={
+ *    "get"={
+ *          "path"="/user/client/{id}"
+ *    },
+ *    "getClientByNci"={
+ *          "methods"="get",
+ *          "path"="/user/client/{nci}"
+ *    }
+ *  }
+ * )
  * @ORM\Entity(repositoryClass=ClientsRepository::class)
  */
 class Clients
@@ -24,16 +34,19 @@ class Clients
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getTransByCode","getClientByNci"})
      */
     private $nomComplet;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getTransByCode","getClientByNci"})
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable = true)
+     * @Groups({"getTransByCode"})
      */
     private $numCni;
 

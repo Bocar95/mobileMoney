@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use App\Repository\TransactionsRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -17,12 +19,27 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *    }
  *  },
  *  itemOperations={
+ *    "get"={
+ *          "path"="/user/transaction/code"
+ *    },
+ *    "getTransByIdUser"={
+ *          "methods"="get",
+ *          "path"="/user/{id}/transactions"
+ *    },
+ *    "getTransByIdCompte"={
+ *          "methods"="get",
+ *          "path"="/admin/compte/{id}/transactions"
+ *    },
  *    "put"={
  *          "path"="/user/transactions/retrait"
+ *    },
+ *    "getFraisByMontant"={
+ *          "path"="/user/frais/{montant}"
  *    }
  *  }
  * )
  * @UniqueEntity("codeTrans")
+ * @ApiFilter(DateFilter::class, properties={"dateDepot"})
  */
 class Transactions
 {
@@ -35,16 +52,19 @@ class Transactions
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"getTransByCode","getTransByIdUser","getTransByIdCompte"})
      */
     private $montant;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"getTransByCode","getTransByIdUser","getTransByIdCompte"})
      */
     private $dateDepot;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"getTransByCode","getTransByIdUser","getTransByIdCompte"})
      */
     private $dateRetrait;
 
@@ -55,6 +75,7 @@ class Transactions
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"getTransByIdUser","getTransByIdCompte"})
      */
     private $frais;
 
@@ -80,21 +101,25 @@ class Transactions
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactionsDepot")
+     * @Groups({"getTransByIdUser"})
      */
     private $usersDepot;
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactionsRetrait")
+     * @Groups({"getTransByIdUser"})
      */
     private $usersRetrait;
 
     /**
      * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactionsRetrait", cascade="persist")
+     * @Groups({"getTransByCode"})
      */
     private $clientRetrait;
 
     /**
      * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactionsDepot", cascade="persist")
+     * @Groups({"getTransByCode"})
      */
     private $clientDepot;
 

@@ -6,7 +6,9 @@ use DateTime;
 use App\Entity\Users;
 use App\Entity\Agences;
 use App\Entity\Comptes;
+use App\Entity\Transactions;
 use App\Repository\RolesRepository;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,5 +67,9 @@ class UserController extends AbstractController
             $manager->flush();
             return new JsonResponse("success",Response::HTTP_CREATED,[],true);
         }
+        else{
+          return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+        }
     }
+
 }
