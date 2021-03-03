@@ -1,0 +1,7 @@
+{
+  "name": "frontEndMobileMoney",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

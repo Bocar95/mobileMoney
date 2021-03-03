@@ -1,7 +1,0 @@
-{
-  "name": "mobileMoneyFrontEnd",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
