@@ -72,4 +72,30 @@ class UserController extends AbstractController
         }
     }
 
+    /**
+     * @Route("/api/user/{username}", name="getAgenceByUserUsername", methods={"GET"})
+     */
+    public function getAgenceByUserUsername($username, UsersRepository $userRepo)
+    {
+      $user = new Users();
+
+      if ($this->isGranted("VIEW",$user)) {
+        $user = $userRepo->findOneBy([
+          "telephone" => $username
+        ]);
+
+        if (!$user){
+          return $this->json(
+            ["message" => "Désolé, mais ce user n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
+        }
+
+        return $this->json($user, 200, [], ["groups" => ["getAgenceByUserUsername"]]);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
 }

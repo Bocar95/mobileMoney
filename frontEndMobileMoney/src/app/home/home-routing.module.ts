@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from '../admin/admin.component';
+import { AcceuilComponent } from '../acceuil/acceuil.component';
 import { AuthGuard } from '../services/authGuardService/auth.guard';
 import { HomePage } from './home.page';
 
 const routes: Routes = [
   { path: '', component: HomePage },
-  { path : 'admin', component: AdminComponent, canActivate: [AuthGuard] }
+  { path : 'acceuil', component: AcceuilComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

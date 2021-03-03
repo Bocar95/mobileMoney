@@ -1,3 +1,4 @@
+import { CompteService } from './services/compteService/compte.service';
 import { TokenInterceptorProvider } from './services/tokenInterceptorService/token-interceptor.service';
 import { AuthService } from './services/authService/auth.service';
 import { NgModule } from '@angular/core';
@@ -30,6 +31,7 @@ import { AuthGuard } from './services/authGuardService/auth.guard';
   providers: [
       AuthService,
       AuthGuard,
+      CompteService,
       TokenInterceptorProvider,
     { 
       provide: RouteReuseStrategy,

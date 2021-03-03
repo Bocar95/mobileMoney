@@ -7,7 +7,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
 import { ConnexionPageComponent } from './../connexion-page/connexion-page.component';
-import { AdminComponent } from '../admin/admin.component';
+import { AcceuilComponent } from '../acceuil/acceuil.component';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import { AdminComponent } from '../admin/admin.component';
   declarations: [
     HomePage,
     ConnexionPageComponent,
-    AdminComponent
+    AcceuilComponent
   ]
 })
 export class HomePageModule {}

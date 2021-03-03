@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin/admin.component';
+import { AcceuilComponent } from './acceuil/acceuil.component';
 import { ConnexionPageComponent } from './connexion-page/connexion-page.component';
 import { AuthGuard } from './services/authGuardService/auth.guard';
 
@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule) },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'connexion', component: ConnexionPageComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] }
+  { path: 'acceuil', component: AcceuilComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -24,16 +24,19 @@ class Comptes
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getCompteByAgenceId","getAgenceByUserUsername"})
      */
     private $numeroCompte;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"getCompteByAgenceId","getAgenceByUserUsername"})
      */
     private $solde;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"getCompteByAgenceId","getAgenceByUserUsername"})
      */
     private $dateCreation;
 

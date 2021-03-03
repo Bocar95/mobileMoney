@@ -17,6 +17,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *    "post"={
  *          "path"="/user"
  *    }
+ *  },
+ * itemOperations={
+ *    "get"={
+ *          "path"="/user/{username}"
+ *    }
  *  }
  * )
  */
@@ -71,6 +76,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Comptes::class, mappedBy="users")
+     * @Groups({"getAgenceByUserUsername"})
      */
     private $compte;
 

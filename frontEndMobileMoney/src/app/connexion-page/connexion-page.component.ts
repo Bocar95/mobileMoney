@@ -33,7 +33,8 @@ export class ConnexionPageComponent implements OnInit {
         res => {
           console.log(res),
           this.storage.set('token', res.token),
-          localStorage.setItem('token', res.token)
+          localStorage.setItem('token', res.token),
+          this.router.navigateByUrl('/acceuil');
         },
         err => console.log(err)
       )
