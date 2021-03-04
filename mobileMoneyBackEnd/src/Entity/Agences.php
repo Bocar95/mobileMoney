@@ -56,7 +56,7 @@ class Agences
 
     /**
      * @ORM\OneToOne(targetEntity=Comptes::class, inversedBy="agences", cascade={"persist", "remove"})
-     * @Groups({"getCompteByAgenceId"})
+     * @Groups({"getCompteByAgenceId","getCompteByUserTelephone"})
      */
     private $compte;
 

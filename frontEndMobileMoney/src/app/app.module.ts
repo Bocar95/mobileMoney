@@ -1,5 +1,5 @@
 import { CompteService } from './services/compteService/compte.service';
-import { TokenInterceptorProvider } from './services/tokenInterceptorService/token-interceptor.service';
+import { TokenInterceptorService } from './services/tokenInterceptorService/token-interceptor.service';
 import { AuthService } from './services/authService/auth.service';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AuthGuard } from './services/authGuardService/auth.guard';
@@ -32,7 +32,9 @@ import { AuthGuard } from './services/authGuardService/auth.guard';
       AuthService,
       AuthGuard,
       CompteService,
-      TokenInterceptorProvider,
+      {
+        provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi:true
+      },
     { 
       provide: RouteReuseStrategy,
       useClass: IonicRouteStrategy

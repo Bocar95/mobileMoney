@@ -4,8 +4,13 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class CompteService {
+export class UserService {
+
+  userUrl = "http://127.0.0.1:8000/api/user";
 
   constructor(private http: HttpClient) { }
 
+  getCompteByUserUsername(username){
+    return this.http.get(`${this.userUrl}/${username}/compte`);
+  }
 }

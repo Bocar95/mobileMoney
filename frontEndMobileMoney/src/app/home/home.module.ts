@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { ConnexionPageComponent } from './../connexion-page/connexion-page.component';
 import { AcceuilComponent } from '../acceuil/acceuil.component';
+import { DepotFormulaireComponent } from '../depot-formulaire/depot-formulaire.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { AcceuilComponent } from '../acceuil/acceuil.component';
   declarations: [
     HomePage,
     ConnexionPageComponent,
-    AcceuilComponent
+    AcceuilComponent,
+    DepotFormulaireComponent
   ]
 })
 export class HomePageModule {}

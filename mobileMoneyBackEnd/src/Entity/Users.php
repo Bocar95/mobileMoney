@@ -20,7 +20,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *  },
  * itemOperations={
  *    "get"={
- *          "path"="/user/{username}"
+ *          "path"="/user/{username}/compte",
+ *          "normalization_context"={"groups"={"getCompteByUserTelephone"}}
  *    }
  *  }
  * )
@@ -71,12 +72,12 @@ class Users implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Agences::class, inversedBy="users", cascade="persist")
+     * @Groups({"getCompteByUserTelephone"})
      */
     private $agences;
 
     /**
      * @ORM\OneToMany(targetEntity=Comptes::class, mappedBy="users")
-     * @Groups({"getAgenceByUserUsername"})
      */
     private $compte;
 
