@@ -1,0 +1,33 @@
+     
+<ion-content class="padding"  style="display: block;">  
+    <ion-list>
+      <ion-item>
+        <ion-label  position="stacked">N° CNI</ion-label>
+        <ion-input  [formControl]="cniFormControl" placeholder="numéro de carte d'identité" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label  position="stacked">Nom</ion-label>
+        <ion-input  placeholder="ex: NOM" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label  position="stacked">Prénom</ion-label>
+        <ion-input  placeholder="ex: Prénom" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label  position="stacked">Téléphone</ion-label>
+        <ion-input  placeholder="numéro de téléphone" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label  position="stacked">Montant</ion-label>
+        <ion-input  placeholder="montant" required></ion-input>
+      </ion-item>
+      <ion-item style="position:relative; display:block; float: right; width: 35%;">
+        <ion-label  position="stacked">Frais</ion-label>
+        <ion-input  readonly placeholder="frais" required></ion-input>
+      </ion-item>
+      <ion-item style="position:relative; display: block; float: left; width: 100%;">
+        <ion-label  position="stacked">Total</ion-label>
+        <ion-input  readonly placeholder="total" required></ion-input>
+      </ion-item>
+    </ion-list>
+</ion-content>

@@ -1,7 +1,3 @@
-ion-menu-button {
-    color: var(--ion-color-primary);
-    position: absolute;
-  }
   
   #header {
     background-color: #E5E5E5;
@@ -16,15 +12,13 @@ ion-menu-button {
     top: 54px;
   }
   
-  #soldeRow {
-    background-color: #E5E5E5;
-  }
-  
   #container {
     text-align: center;
-    position: absolute;
     left: 1rem;
     right: 1rem;
+    display: block;
+    height: 20em;
+    padding-top: 27em;
   }
   
   #container strong {
@@ -62,5 +56,13 @@ ion-menu-button {
   
   ion-item{
     color: red;
+  }
+
+  ion-button {
+    background-color: #FA4A0C;
+    width: 50%;
+    display: flex;
+    margin: 0px auto;
+    border-radius: 6px;
   }
   

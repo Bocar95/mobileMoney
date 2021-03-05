@@ -8,7 +8,9 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { ConnexionPageComponent } from './../connexion-page/connexion-page.component';
 import { AcceuilComponent } from '../acceuil/acceuil.component';
-import { DepotFormulaireComponent } from '../depot-formulaire/depot-formulaire.component';
+import { DepotFormulaireComponent } from '../formulaires/depot-formulaire/depot-formulaire.component';
+import { EmetteurFormulaireComponent } from '../formulaires/depot-formulaire/emetteur-formulaire/emetteur-formulaire.component';
+import { BeneficiareFormulaireComponent } from '../formulaires/depot-formulaire/beneficiare-formulaire/beneficiare-formulaire.component';
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ import { DepotFormulaireComponent } from '../depot-formulaire/depot-formulaire.c
     HomePage,
     ConnexionPageComponent,
     AcceuilComponent,
-    DepotFormulaireComponent
+    DepotFormulaireComponent,
+    EmetteurFormulaireComponent,
+    BeneficiareFormulaireComponent
   ]
 })
 export class HomePageModule {}

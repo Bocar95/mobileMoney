@@ -6,9 +6,9 @@
   </ion-toolbar>  
 </ion-header>  
      
-<ion-content class="padding" >  
+<ion-content class="padding">  
   <ion-tabs>
-    <ion-tab-bar slot="bottom">
+    <ion-tab-bar slot="top">
       <ion-tab-button tab="emetteur">
         <ion-label>Emetteur</ion-label>
       </ion-tab-button>
@@ -18,4 +18,12 @@
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
+
+  <div id="container">
+      <router-outlet></router-outlet>
+  </div>
+  <ion-footer>
+    <ion-button (click)="nextPage()" size="large" type="submit" color="#FA4A0C">Suivant</ion-button>
+  </ion-footer>
 </ion-content>
+
