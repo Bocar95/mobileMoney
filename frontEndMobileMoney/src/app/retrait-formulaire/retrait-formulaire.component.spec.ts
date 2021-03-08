@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { EmetteurFormulaireComponent } from './emetteur-formulaire.component';
+import { RetraitFormulaireComponent } from './retrait-formulaire.component';
 
-describe('EmetteurFormulaireComponent', () => {
-  let component: EmetteurFormulaireComponent;
-  let fixture: ComponentFixture<EmetteurFormulaireComponent>;
+describe('RetraitFormulaireComponent', () => {
+  let component: RetraitFormulaireComponent;
+  let fixture: ComponentFixture<RetraitFormulaireComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EmetteurFormulaireComponent ],
+      declarations: [ RetraitFormulaireComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EmetteurFormulaireComponent);
+    fixture = TestBed.createComponent(RetraitFormulaireComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

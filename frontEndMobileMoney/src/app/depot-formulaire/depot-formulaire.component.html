@@ -1,0 +1,75 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-buttons slot="start" (click)="getBackHome()">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-buttons>
+    <ion-img src="../assets/icon/logo.jpeg"></ion-img>
+  </ion-toolbar>  
+</ion-header>  
+     
+<ion-content class="padding">
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button (click)="disabledBeneficiaire()">
+        <ion-label style="border-bottom: 2px solid #FA4A0C;">Emetteur</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button (click)="disabledEmetteur()">
+        <ion-label>Bénéficiaire</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+  <div id="container">
+    <form [formGroup]="depotForm" (ngSubmit)="depot()">
+      <div>
+      <ion-list *ngIf="disabledEmetteurInputs == true">
+        <ion-item>
+          <ion-label  position="stacked">N° CNI</ion-label>
+          <ion-input  [formControl]="cniEmetteurFormControl" placeholder="numéro de carte d'identité" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label  position="stacked">Nom Complet</ion-label>
+          <ion-input  [formControl]="nomCompletEmetteurFormControl" placeholder="ex: Prénom et NOM" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label  position="stacked">Téléphone</ion-label>
+          <ion-input  [formControl]="telephoneEmetteurFormControl" placeholder="numéro de téléphone" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label  position="stacked">Montant</ion-label>
+          <ion-input  [formControl]="montantFormControl" placeholder="montant" required></ion-input>
+        </ion-item>
+        <ion-item style="position:relative; display:block; float: right; width: 35%;">
+          <ion-label  position="stacked">Frais</ion-label>
+          <ion-input  readonly value="{{frais}}" placeholder="frais" required></ion-input>
+        </ion-item>
+        <ion-item style="position:relative; display: block; float: left; width: 100%;">
+          <ion-label  position="stacked">Total</ion-label>
+          <ion-input  readonly placeholder="total" required></ion-input>
+        </ion-item>
+      </ion-list>
+      </div>
+      
+      <div>
+        <ion-list *ngIf="disabledBeneficiaireInputs == true">
+          <ion-item>
+            <ion-label  position="stacked">Nom Complet</ion-label>
+            <ion-input  [formControl]="nomCompletBeneficiaireFormControl" placeholder="ex: Prénom et NOM" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label  position="stacked">Téléphone</ion-label>
+            <ion-input  [formControl]="telephoneBeneficiaireFormControl" placeholder="numéro de téléphone" required></ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
+      
+      <ion-button size="large" type="submit" color="#FA4A0C" *ngIf="submit == true">Depot</ion-button>
+    </form>
+  </div>
+  
+  <ion-footer>
+    <ion-button (click)="nextPage()" size="large" type="nextPage()" color="#FA4A0C">Suivant</ion-button>
+  </ion-footer>
+
+</ion-content>
+

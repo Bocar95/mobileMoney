@@ -80,8 +80,9 @@ class TransactionsController extends AbstractController
           );
         }
 
-        //si oui on ajoute l'argent de l'opération sur son compte
+        //si oui on ajoute l'argent de l'opération sur son compte et on modifi la date de mise à jour.
         $compteAvecNewSolde = $compteDepot->setSolde($soldeCompte + $fraisOperationtotal);
+        $compteAvecNewSolde = $compteDepot->setDateCreation($date);
 
         //on fait les set()
         $depotTrans->setMontant($depotTransTab["montant"]);
@@ -96,34 +97,33 @@ class TransactionsController extends AbstractController
 
         //on détermine si le client qui fait le dépot éxiste dans la base de données. Puis on l'ajoute dans la table Client
         //faisant une opération de dépot
-        $client1 = $depotTransTab["clientDepot"];
+        
         $client1Existante = $clientsRepo->findOneBy([
-          "telephone" => $client1["telephone"]
+          "telephone" => $depotTransTab["telephoneEmetteur"]
         ]);
 
         if ($client1Existante){
           $client1Existante->addTransactionsDepot($depotTrans);
           $depotTrans->setClientDepot($client1Existante);
         }else{
-          $clientDepot->setNomComplet($client1["nomComplet"]);
-          $clientDepot->setTelephone($client1["telephone"]);
-          $clientDepot->setNumCni($client1["numCni"]);
+          $clientDepot->setNomComplet($depotTransTab["nomCompletEmetteur"]);
+          $clientDepot->setTelephone($depotTransTab["telephoneEmetteur"]);
+          $clientDepot->setNumCni($depotTransTab["numCniEmetteur"]);
           $clientDepot->addTransactionsDepot($depotTrans);
           $depotTrans->setClientDepot($clientDepot);
         }
 
         //on détermine si le client qui doit faire le retrait éxiste dans la base de données. Puis on l'ajoute dans la table Client
         //qui doit l'opération de retrait
-        $client2 = $depotTransTab["clientRetrait"];
         $client2Existante = $clientsRepo->findOneBy([
-          "telephone" => $client2["telephone"]
+          "telephone" => $depotTransTab["telephoneBeneficiaire"]
         ]);
 
         if ($client2Existante){
           $depotTrans->setClientRetrait($client2Existante);
         }else{
-          $clientRetrait->setNomComplet($client2["nomComplet"]);
-          $clientRetrait->setTelephone($client2["telephone"]);
+          $clientRetrait->setNomComplet($depotTransTab["nomCompletBeneficiaire"]);
+          $clientRetrait->setTelephone($depotTransTab["telephoneBeneficiaire"]);
           $depotTrans->setClientRetrait($clientRetrait);
         }
 
