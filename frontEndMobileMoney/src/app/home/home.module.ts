@@ -1,3 +1,4 @@
+import { DepotModalComponent } from './../depot-modal/depot-modal.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -25,7 +26,8 @@ import { RetraitFormulaireComponent } from '../retrait-formulaire/retrait-formul
     ConnexionPageComponent,
     AcceuilComponent,
     DepotFormulaireComponent,
-    RetraitFormulaireComponent
+    RetraitFormulaireComponent,
+    DepotModalComponent
   ]
 })
 export class HomePageModule {}

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { DepotModalComponent } from '../depot-modal/depot-modal.component';
 import { TransactionService } from '../services/transactionService/transaction.service';
 
 @Component({
@@ -14,7 +16,8 @@ export class DepotFormulaireComponent implements OnInit {
   disabledBeneficiaireInputs = false;
   submit = false;
 
-  frais;
+  frais = 0;
+  total = 0;
 
   depotForm: FormGroup;
   cniEmetteurFormControl = new FormControl('', [Validators.required]);
@@ -24,7 +27,7 @@ export class DepotFormulaireComponent implements OnInit {
   telephoneBeneficiaireFormControl = new FormControl('', [Validators.required]);
   montantFormControl = new FormControl('', [Validators.required]);
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private transactionService : TransactionService) { }
+  constructor(private modalCtrl : ModalController,private formBuilder: FormBuilder, private router: Router, private transactionService : TransactionService) { }
 
   ngOnInit() {
     this.depotForm  =  this.formBuilder.group({
@@ -35,11 +38,6 @@ export class DepotFormulaireComponent implements OnInit {
       telephoneBeneficiaire : this.telephoneBeneficiaireFormControl,
       montant : this.montantFormControl,
     });
-    // this.transactionService.getFrais(this.montantFormControl).subscribe(
-    //   (data:any) => {
-    //     this.frais = data
-    //   }
-    // )
   }
 
   getBackHome(){
@@ -64,6 +62,16 @@ export class DepotFormulaireComponent implements OnInit {
     }
   }
 
+  fraisCalculator (){
+    var montant = +this.montantFormControl.value;
+    return this.transactionService.getFrais(montant).subscribe(
+        (data : number) => {
+          this.frais = data,
+          console.log(data,montant)
+        }
+      ), this.total = +this.frais + montant;
+  }
+
   nextPage(){
     if (this.disabledEmetteurInputs == true){
       this.disabledEmetteurInputs = false;
@@ -71,18 +79,16 @@ export class DepotFormulaireComponent implements OnInit {
     if (this.disabledBeneficiaireInputs == false){
       this.disabledBeneficiaireInputs = true;
     }
-    if (this.disabledBeneficiaireInputs = true){
-      this.submit = true;
-    }
   }
 
-  depot() {
-    return this.transactionService.addDepot(this.depotForm.value).subscribe(
-      res => {
-        console.log(res),
-        this.router.navigate(['/acceuil'])
+  async showModal(){
+    const modal = await this.modalCtrl.create({
+      component : DepotModalComponent,
+      componentProps : {
+        data : [this.depotForm.value]
       }
-    );
+    })
+    await modal.present();
   }
 
 }

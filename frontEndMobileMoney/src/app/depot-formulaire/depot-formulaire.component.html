@@ -20,7 +20,7 @@
     </ion-tab-bar>
   </ion-tabs>
   <div id="container">
-    <form [formGroup]="depotForm" (ngSubmit)="depot()">
+    <form [formGroup]="depotForm">
       <div>
       <ion-list *ngIf="disabledEmetteurInputs == true">
         <ion-item>
@@ -37,15 +37,15 @@
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Montant</ion-label>
-          <ion-input  [formControl]="montantFormControl" placeholder="montant" required></ion-input>
+          <ion-input  [formControl]="montantFormControl" (ionChange)="fraisCalculator()"  placeholder="montant" required></ion-input>
         </ion-item>
-        <ion-item style="position:relative; display:block; float: right; width: 35%;">
+        <ion-item style="position:relative; display:block; float: right; width: 45%;">
           <ion-label  position="stacked">Frais</ion-label>
-          <ion-input  readonly value="{{frais}}" placeholder="frais" required></ion-input>
+          <ion-input  [value]="frais" readonly placeholder="frais"></ion-input>
         </ion-item>
         <ion-item style="position:relative; display: block; float: left; width: 100%;">
           <ion-label  position="stacked">Total</ion-label>
-          <ion-input  readonly placeholder="total" required></ion-input>
+          <ion-input  [value]="total" readonly placeholder="total"></ion-input>
         </ion-item>
       </ion-list>
       </div>
@@ -61,14 +61,13 @@
             <ion-input  [formControl]="telephoneBeneficiaireFormControl" placeholder="numéro de téléphone" required></ion-input>
           </ion-item>
         </ion-list>
-      </div>
-      
-      <ion-button size="large" type="submit" color="#FA4A0C" *ngIf="submit == true">Depot</ion-button>
+      </div>      
     </form>
   </div>
   
   <ion-footer>
-    <ion-button (click)="nextPage()" size="large" type="nextPage()" color="#FA4A0C">Suivant</ion-button>
+    <ion-button (click)="nextPage()" size="large" color="#FA4A0C">Suivant</ion-button>
+    <ion-button (click)="showModal()" size="large">Show Modal</ion-button>
   </ion-footer>
 
 </ion-content>
