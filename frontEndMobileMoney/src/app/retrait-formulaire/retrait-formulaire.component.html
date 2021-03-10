@@ -10,12 +10,12 @@
 <ion-content class="padding">
 
   <div id="container">
-    <form>
+    <form [formGroup]="retraitForm" (ngSubmit)="retraitTrans()">
       <div>
         <ion-list>
           <ion-item>
             <ion-label  position="stacked">Code</ion-label>
-            <ion-input  placeholder="xxx-xxx-xxx" required></ion-input>
+            <ion-input  [formControl]="codeFormControl" (ionChange)="getTransByCode()" placeholder="xxx-xxx-xxx" required></ion-input>
           </ion-item>
 
           <ion-item>
@@ -35,23 +35,23 @@
         <ion-list *ngIf="disabledBeneficiaireInputs == true">
           <ion-item>
             <ion-label  position="stacked">N° CNI</ion-label>
-            <ion-input  readonly placeholder="numéro de carte d'identité" required></ion-input>
+            <ion-input  [formControl]="cniBeneficiaireFormControl" placeholder="numéro de carte d'identité" required></ion-input>
           </ion-item>
           <ion-item>
             <ion-label  position="stacked">Nom Complet</ion-label>
-            <ion-input  readonly required></ion-input>
+            <ion-input  [formControl]="nomCompletBeneficiaireFormControl" [value]="clientBeneficiaire.nomComplet" readonly required></ion-input>
           </ion-item>
           <ion-item>
             <ion-label  position="stacked">Téléphone</ion-label>
-            <ion-input  readonly required></ion-input>
+            <ion-input  [formControl]="telephoneBeneficiaireFormControl" required></ion-input>
           </ion-item>
           <ion-item>
             <ion-label  position="stacked">Montant à recevoir</ion-label>
-            <ion-input  readonly required></ion-input>
+            <ion-input  [formControl]="montantFormControl" [value]="transInfo.montant" readonly required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label  position="stacked">Date d'envoi</ion-label>
-            <ion-input  readonly required></ion-input>
+            <ion-label  position="stacked">Date de dépot</ion-label>
+            <ion-input  [formControl]="" [value]="transInfo.dateDepot | date" readonly required></ion-input>
           </ion-item>
         </ion-list>
       </div>
@@ -60,28 +60,28 @@
       <ion-list *ngIf="disabledEmetteurInputs == true">
         <ion-item>
           <ion-label  position="stacked">N° CNI</ion-label>
-          <ion-input  readonly required></ion-input>
+          <ion-input  [value]="clientEmetteur.numCni" readonly required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Nom Complet</ion-label>
-          <ion-input  readonly required></ion-input>
+          <ion-input  [value]="clientEmetteur.nomComplet" readonly required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Montant envoyer</ion-label>
-          <ion-input  readonly required></ion-input>
+          <ion-input  [value]="transInfo.montant" readonly required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Téléphone</ion-label>
-          <ion-input  readonly required></ion-input>
+          <ion-input  [value]="clientEmetteur.telephone" readonly required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label  position="stacked">Date d'envoi</ion-label>
-          <ion-input  readonly required></ion-input>
+          <ion-label  position="stacked">Date de dépot</ion-label>
+          <ion-input  [value]="transInfo.dateDepot | date" readonly required></ion-input>
         </ion-item>
       </ion-list>
       </div>
       
-      <ion-button size="large" type="submit" color="#FA4A0C">Retirer</ion-button>
+      <ion-button type="submit" size="large" color="#FA4A0C">Retirer</ion-button>
     </form>
   </div>
 

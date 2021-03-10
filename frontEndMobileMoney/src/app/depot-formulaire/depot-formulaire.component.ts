@@ -14,7 +14,8 @@ export class DepotFormulaireComponent implements OnInit {
 
   disabledEmetteurInputs = true;
   disabledBeneficiaireInputs = false;
-  submit = false;
+  hiddenForModal = true;
+  hiddenForNext = false;
 
   frais = 0;
   total = 0;
@@ -69,7 +70,12 @@ export class DepotFormulaireComponent implements OnInit {
           this.frais = data,
           console.log(data,montant)
         }
-      ), this.total = +this.frais + montant;
+      );
+      ;
+  }
+
+  totalToGive(){
+    return this.total = +this.frais + +this.montantFormControl.value;
   }
 
   nextPage(){
@@ -78,6 +84,11 @@ export class DepotFormulaireComponent implements OnInit {
     }
     if (this.disabledBeneficiaireInputs == false){
       this.disabledBeneficiaireInputs = true;
+      this.hiddenForModal = false;
+      this.hiddenForNext = true;
+    }else{
+      this.hiddenForModal = true;
+      this.hiddenForNext = false;
     }
   }
 
@@ -86,7 +97,8 @@ export class DepotFormulaireComponent implements OnInit {
       component : DepotModalComponent,
       componentProps : {
         data : [this.depotForm.value]
-      }
+      },
+      cssClass : 'my-modal-component-css'
     })
     await modal.present();
   }

@@ -37,7 +37,7 @@
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Montant</ion-label>
-          <ion-input  [formControl]="montantFormControl" (ionChange)="fraisCalculator()"  placeholder="montant" required></ion-input>
+          <ion-input  [formControl]="montantFormControl" (ionChange)="fraisCalculator()" (ionChange)="totalToGive()"  placeholder="montant" required></ion-input>
         </ion-item>
         <ion-item style="position:relative; display:block; float: right; width: 45%;">
           <ion-label  position="stacked">Frais</ion-label>
@@ -66,8 +66,8 @@
   </div>
   
   <ion-footer>
-    <ion-button (click)="nextPage()" size="large" color="#FA4A0C">Suivant</ion-button>
-    <ion-button (click)="showModal()" size="large">Show Modal</ion-button>
+    <ion-button (click)="nextPage()" size="large" color="#FA4A0C" [hidden]="hiddenForNext">Suivant</ion-button>
+    <ion-button (click)="showModal()" size="large" color="#FA4A0C" [hidden]="hiddenForModal">Suivant</ion-button>
   </ion-footer>
 
 </ion-content>

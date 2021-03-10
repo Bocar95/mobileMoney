@@ -19,8 +19,8 @@ export class DepotModalComponent implements OnInit {
 
   ngOnInit() {
     this.confirmDepot  =  this.formBuilder.group({
-      numCniEmetteur : this.data[0]["numCniEmetteur"],
       nomCompletEmetteur : this.data[0]["nomCompletEmetteur"],
+      numCniEmetteur : this.data[0]["numCniEmetteur"],
       telephoneEmetteur: this.data[0]["telephoneEmetteur"],
       nomCompletBeneficiaire : this.data[0]["nomCompletBeneficiaire"],
       telephoneBeneficiaire : this.data[0]["telephoneBeneficiaire"],
@@ -32,12 +32,18 @@ export class DepotModalComponent implements OnInit {
     await this.modalCtrl.dismiss();
   }
 
+  reloadComponent() {
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    return this.router.navigate(['/acceuil']);
+  }
+
   depot() {
     return this.transactionService.addDepot(this.confirmDepot.value).subscribe(
       res => {
-        console.log(res),
-        this.router.navigate(['/acceuil'])
+        console.log(res)
       }
-    );
+    ), this.reloadComponent();
   }
 }
