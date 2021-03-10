@@ -16,17 +16,18 @@ export class DepotFormulaireComponent implements OnInit {
   disabledBeneficiaireInputs = false;
   hiddenForModal = true;
   hiddenForNext = false;
+  disabled = false;
 
   frais = 0;
   total = 0;
 
   depotForm: FormGroup;
-  cniEmetteurFormControl = new FormControl('', [Validators.required]);
-  nomCompletEmetteurFormControl = new FormControl('', [Validators.required]);
-  telephoneEmetteurFormControl = new FormControl('', [Validators.required]);
-  nomCompletBeneficiaireFormControl = new FormControl('', [Validators.required]);
-  telephoneBeneficiaireFormControl = new FormControl('', [Validators.required]);
-  montantFormControl = new FormControl('', [Validators.required]);
+  cniEmetteurFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[0-9]{13}$)/)]);
+  nomCompletEmetteurFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[A-Z]{1}([a-zA-Z]))/) ]);
+  telephoneEmetteurFormControl = new FormControl('', [Validators.required, Validators.pattern(/((\+221|00221)?)((7[7608][0-9]{7}$)|(3[03][98][0-9]{6}$))/)]);
+  nomCompletBeneficiaireFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[A-Z]{1}([a-zA-Z]))/)]);
+  telephoneBeneficiaireFormControl = new FormControl('', [Validators.required, Validators.pattern(/((\+221|00221)?)((7[7608][0-9]{7}$)|(3[03][98][0-9]{6}$))/)]);
+  montantFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[0-9])/)]);
 
   constructor(private modalCtrl : ModalController,private formBuilder: FormBuilder, private router: Router, private transactionService : TransactionService) { }
 
@@ -52,6 +53,9 @@ export class DepotFormulaireComponent implements OnInit {
     if (this.disabledBeneficiaireInputs == true){
       this.disabledBeneficiaireInputs = false;
     }
+    this.disabled = false;
+    this.hiddenForModal = true;
+    this.hiddenForNext = false;
   }
 
   disabledEmetteur(){
@@ -61,6 +65,11 @@ export class DepotFormulaireComponent implements OnInit {
     if (this.disabledBeneficiaireInputs == false){
       this.disabledBeneficiaireInputs = true;
     }
+    // if(this.depotForm.invalid){
+    //   this.disabled = true;
+    //   this.hiddenForModal = false;
+    //   this.hiddenForNext = true;
+    // }
   }
 
   fraisCalculator (){
@@ -71,7 +80,6 @@ export class DepotFormulaireComponent implements OnInit {
           console.log(data,montant)
         }
       );
-      ;
   }
 
   totalToGive(){
@@ -93,14 +101,19 @@ export class DepotFormulaireComponent implements OnInit {
   }
 
   async showModal(){
-    const modal = await this.modalCtrl.create({
-      component : DepotModalComponent,
-      componentProps : {
-        data : [this.depotForm.value]
-      },
-      cssClass : 'my-modal-component-css'
-    })
-    await modal.present();
+    if(this.depotForm.valid){
+      this.disabled = false;
+      const modal = await this.modalCtrl.create({
+        component : DepotModalComponent,
+        componentProps : {
+          data : [this.depotForm.value]
+        },
+        cssClass : 'my-modal-component-css'
+      })
+      await modal.present();
+    }else{
+      return this.disabled = true;
+    }
   }
 
 }

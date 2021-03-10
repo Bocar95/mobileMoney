@@ -15,7 +15,7 @@ export class ConnexionPageComponent implements OnInit {
   loginForm: FormGroup;
   hide = true;
 
-  telephoneFormControl = new FormControl('', [Validators.required]);
+  telephoneFormControl = new FormControl('', [Validators.required, Validators.pattern(/((\+221|00221)?)((7[7608][0-9]{7}$)|(3[03][98][0-9]{6}$))/)]);
   passwordFormControl = new FormControl('', [Validators.required]);
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private storage: Storage, private navCtrl: NavController) { }

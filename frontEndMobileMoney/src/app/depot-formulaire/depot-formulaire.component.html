@@ -67,7 +67,7 @@
   
   <ion-footer>
     <ion-button (click)="nextPage()" size="large" color="#FA4A0C" [hidden]="hiddenForNext">Suivant</ion-button>
-    <ion-button (click)="showModal()" size="large" color="#FA4A0C" [hidden]="hiddenForModal">Suivant</ion-button>
+    <ion-button (click)="showModal()" (ionChange)="showModal()" size="large" color="#FA4A0C" [hidden]="hiddenForModal" [disabled]="disabled">Suivant</ion-button>
   </ion-footer>
 
 </ion-content>
