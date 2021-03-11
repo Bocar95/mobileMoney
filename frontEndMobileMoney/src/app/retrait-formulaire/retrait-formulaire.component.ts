@@ -1,4 +1,4 @@
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TransactionService } from '../services/transactionService/transaction.service';
@@ -16,13 +16,13 @@ export class RetraitFormulaireComponent implements OnInit {
   disabledBeneficiaireInputs = true;
 
   retraitForm : FormGroup;
-  codeFormControl = new FormControl();
+  codeFormControl = new FormControl('', [Validators.required, Validators.pattern(/((^[0-9]{3})-([0-9]{3})-([0-9]{3}$))/)]);
   nomCompletBeneficiaireFormControl = new FormControl();
-  cniBeneficiaireFormControl = new FormControl();
-  telephoneBeneficiaireFormControl = new FormControl();
-  montantFormControl = new FormControl();
+  cniBeneficiaireFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[0-9]{13}$)/)]);
+  telephoneBeneficiaireFormControl = new FormControl('', [Validators.required, Validators.pattern(/((\+221|00221)?)((7[7608][0-9]{7}$)|(3[03][98][0-9]{6}$))/)]);
+  montantFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[0-9])/)]);
   nomCompletEmetteurFormControl = new FormControl();
-  telephoneEmetteurFormControl = new FormControl();
+  telephoneEmetteurFormControl = new FormControl('', [Validators.required, Validators.pattern(/((\+221|00221)?)((7[7608][0-9]{7}$)|(3[03][98][0-9]{6}$))/)]);
 
   transInfo = [];
   clientBeneficiaire = [];

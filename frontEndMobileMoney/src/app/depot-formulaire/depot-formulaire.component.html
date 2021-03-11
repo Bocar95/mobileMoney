@@ -25,15 +25,15 @@
       <ion-list *ngIf="disabledEmetteurInputs == true">
         <ion-item>
           <ion-label  position="stacked">N° CNI</ion-label>
-          <ion-input  [formControl]="cniEmetteurFormControl" placeholder="numéro de carte d'identité" required></ion-input>
+          <ion-input  [formControl]="cniEmetteurFormControl" (ionChange)="getClient()" placeholder="numéro de carte d'identité" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Nom Complet</ion-label>
-          <ion-input  [formControl]="nomCompletEmetteurFormControl" placeholder="ex: Prénom et NOM" required></ion-input>
+          <ion-input  [formControl]="nomCompletEmetteurFormControl" [value]="clientEmetteur.nomComplet" placeholder="ex: Prénom et NOM" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Téléphone</ion-label>
-          <ion-input  [formControl]="telephoneEmetteurFormControl" placeholder="numéro de téléphone" required></ion-input>
+          <ion-input  [formControl]="telephoneEmetteurFormControl" [value]="clientEmetteur.telephone" placeholder="numéro de téléphone" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Montant</ion-label>

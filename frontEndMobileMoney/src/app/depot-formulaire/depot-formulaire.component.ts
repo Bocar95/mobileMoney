@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { DepotModalComponent } from '../depot-modal/depot-modal.component';
+import { ClientService } from '../services/clientsService/client.service';
 import { TransactionService } from '../services/transactionService/transaction.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class DepotFormulaireComponent implements OnInit {
   hiddenForModal = true;
   hiddenForNext = false;
   disabled = false;
+  clientEmetteur = [];
 
   frais = 0;
   total = 0;
@@ -29,7 +31,7 @@ export class DepotFormulaireComponent implements OnInit {
   telephoneBeneficiaireFormControl = new FormControl('', [Validators.required, Validators.pattern(/((\+221|00221)?)((7[7608][0-9]{7}$)|(3[03][98][0-9]{6}$))/)]);
   montantFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[0-9])/)]);
 
-  constructor(private modalCtrl : ModalController,private formBuilder: FormBuilder, private router: Router, private transactionService : TransactionService) { }
+  constructor(private modalCtrl : ModalController,private formBuilder: FormBuilder, private router: Router, private transactionService : TransactionService, private clientService : ClientService) { }
 
   ngOnInit() {
     this.depotForm  =  this.formBuilder.group({
@@ -65,11 +67,6 @@ export class DepotFormulaireComponent implements OnInit {
     if (this.disabledBeneficiaireInputs == false){
       this.disabledBeneficiaireInputs = true;
     }
-    // if(this.depotForm.invalid){
-    //   this.disabled = true;
-    //   this.hiddenForModal = false;
-    //   this.hiddenForNext = true;
-    // }
   }
 
   fraisCalculator (){
@@ -114,6 +111,15 @@ export class DepotFormulaireComponent implements OnInit {
     }else{
       return this.disabled = true;
     }
+  }
+
+  getClient(){
+    return this.clientService.getClientByCni(this.cniEmetteurFormControl.value).subscribe(
+      (res:any) => {
+        console.log(res),
+        this.clientEmetteur = res
+      }
+    )
   }
 
 }
