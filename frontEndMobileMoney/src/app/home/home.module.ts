@@ -13,6 +13,7 @@ import { AcceuilComponent } from '../acceuil/acceuil.component';
 import { DepotFormulaireComponent } from '../depot-formulaire/depot-formulaire.component';
 import { RetraitFormulaireComponent } from '../retrait-formulaire/retrait-formulaire.component';
 import { CodeModalComponent } from '../code-modal/code-modal.component';
+import { RetraitModalComponent } from '../retrait-modal/retrait-modal.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { CodeModalComponent } from '../code-modal/code-modal.component';
     DepotFormulaireComponent,
     RetraitFormulaireComponent,
     DepotModalComponent,
-    CodeModalComponent
+    CodeModalComponent,
+    RetraitModalComponent
   ]
 })
 export class HomePageModule {}

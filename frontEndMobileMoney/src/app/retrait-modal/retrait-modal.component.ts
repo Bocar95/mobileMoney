@@ -20,7 +20,12 @@ export class RetraitModalComponent implements OnInit {
   ngOnInit() {
     this.confirmRetrait = this.formBuilder.group({
       codeTrans : this.data[0]["codeTrans"],
-      numCni : this.data[0]["numCni"]
+      numCni : this.data[0]["numCni"],
+      nomBeneficiaire : this.data[0]["nomBeneficiaire"],
+      telephone : this.data[0]["telephone"],
+      montant : this.data[0]["montant"],
+      nomEmetteur : this.data[0]["nomEmetteur"], 
+      telephoneEmetteur : this.data[0]["telephoneEmetteur"]
     });
     console.log(this.data);
   }
@@ -41,7 +46,7 @@ export class RetraitModalComponent implements OnInit {
       res => {
         console.log(res)
       }
-    ), this.reloadComponent();
+    ), this.closeModal(), this.reloadComponent();
   }
 
 }

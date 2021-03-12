@@ -14,15 +14,16 @@ export class RetraitFormulaireComponent implements OnInit {
 
   disabledEmetteurInputs = false;
   disabledBeneficiaireInputs = true;
+  disabled = true;
 
   retraitForm : FormGroup;
   codeFormControl = new FormControl('', [Validators.required, Validators.pattern(/((^[0-9]{3})-([0-9]{3})-([0-9]{3}$))/)]);
   nomCompletBeneficiaireFormControl = new FormControl();
   cniBeneficiaireFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[0-9]{13}$)/)]);
-  telephoneBeneficiaireFormControl = new FormControl('', [Validators.required, Validators.pattern(/((\+221|00221)?)((7[7608][0-9]{7}$)|(3[03][98][0-9]{6}$))/)]);
-  montantFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[0-9])/)]);
+  telephoneBeneficiaireFormControl = new FormControl();
+  montantFormControl = new FormControl();
   nomCompletEmetteurFormControl = new FormControl();
-  telephoneEmetteurFormControl = new FormControl('', [Validators.required, Validators.pattern(/((\+221|00221)?)((7[7608][0-9]{7}$)|(3[03][98][0-9]{6}$))/)]);
+  telephoneEmetteurFormControl = new FormControl();
 
   transInfo = [];
   clientBeneficiaire = [];
@@ -39,7 +40,7 @@ export class RetraitFormulaireComponent implements OnInit {
       montant : this.montantFormControl,
       nomEmetteur : this.nomCompletEmetteurFormControl, 
       telephoneEmetteur : this.telephoneEmetteurFormControl
-    })
+    });
   }
 
   getBackHome(){
@@ -88,24 +89,17 @@ export class RetraitFormulaireComponent implements OnInit {
     }); 
   }
 
-  retraitTrans(){
-    return this.transactionService.retrait(this.retraitForm.value).subscribe(
-      res => {
-        console.log(res),
-        this.refresh()
-      }
-    );
-  }
-
   async showModal(){
-    const modal = await this.modalCtrl.create({
-      component : RetraitModalComponent,
-      componentProps : {
-        data : [this.retraitForm.value]
-      },
-      cssClass : 'my-modal-component-css'
-    })
-    await modal.present();
+    if(this.retraitForm.valid){
+      const modal = await this.modalCtrl.create({
+        component : RetraitModalComponent,
+        componentProps : {
+          data : [this.retraitForm.value]
+        },
+        cssClass : 'my-modal-component-css'
+      })
+      await modal.present();
+    }
   }
 
 }

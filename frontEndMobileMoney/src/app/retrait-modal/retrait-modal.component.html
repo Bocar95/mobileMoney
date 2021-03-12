@@ -8,32 +8,28 @@
 </ion-header>  
      
 <ion-content class="padding">
-  <div id="container">
+  <div id="container" *ngFor="let element of data">
     <form [formGroup]="confirmRetrait" (ngSubmit)="retraitTrans()">
       <ion-list>
         <ion-item>
           <ion-label  position="stacked">Émetteur</ion-label>
-          <ion-input  readonly [value]="data.nomCompletEmetteur" placeholder="ex: Prénom et NOM" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label  position="stacked">N° CNI</ion-label>
-          <ion-input  readonly [value]="data.numCniEmetteur" placeholder="numéro de carte d'identité" required></ion-input>
+          <ion-input  readonly [value]="element.nomEmetteur" placeholder="ex: Prénom et NOM"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Téléphone</ion-label>
-          <ion-input  readonly [value]="data.telephoneEmetteur" placeholder="numéro de téléphone" required></ion-input>
+          <ion-input  readonly [value]="element.telephoneEmetteur" placeholder="numéro de téléphone"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Bénéficiare</ion-label>
-          <ion-input  readonly [value]="data.nomCompletBeneficiaire" placeholder="ex: Prénom et NOM" required></ion-input>
+          <ion-input  readonly [value]="element.nomBeneficiaire" placeholder="ex: Prénom et NOM"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Téléphone</ion-label>
-          <ion-input  readonly [value]="data.telephoneBeneficiaire" placeholder="numéro de téléphone" required></ion-input>
+          <ion-input  readonly [value]="element.telephone" placeholder="numéro de téléphone"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Montant</ion-label>
-          <ion-input  readonly [value]="data.montant" placeholder="montant" required></ion-input>
+          <ion-input  readonly [value]="element.montant" placeholder="montant"></ion-input>
         </ion-item>
       </ion-list>
       <ion-buttons>
