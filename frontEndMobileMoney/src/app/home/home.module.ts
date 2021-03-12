@@ -12,6 +12,7 @@ import { ConnexionPageComponent } from './../connexion-page/connexion-page.compo
 import { AcceuilComponent } from '../acceuil/acceuil.component';
 import { DepotFormulaireComponent } from '../depot-formulaire/depot-formulaire.component';
 import { RetraitFormulaireComponent } from '../retrait-formulaire/retrait-formulaire.component';
+import { CodeModalComponent } from '../code-modal/code-modal.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { RetraitFormulaireComponent } from '../retrait-formulaire/retrait-formul
     AcceuilComponent,
     DepotFormulaireComponent,
     RetraitFormulaireComponent,
-    DepotModalComponent
+    DepotModalComponent,
+    CodeModalComponent
   ]
 })
 export class HomePageModule {}

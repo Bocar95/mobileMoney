@@ -16,9 +16,13 @@ export class AcceuilComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.getCompte();
+  }
+
+  getCompte(){
     this.userService.getCompteByUserUsername(this.userUsername()).subscribe(
       (compteElements : any) => {
-        this.compte= compteElements,
+        this.compte = compteElements,
         console.log(this.compte)
       }
     );

@@ -13,8 +13,8 @@ import { TransactionService } from '../services/transactionService/transaction.s
 })
 export class DepotFormulaireComponent implements OnInit {
 
-  disabledEmetteurInputs = true;
-  disabledBeneficiaireInputs = false;
+  disabledEmetteurInputs = false;
+  disabledBeneficiaireInputs = true;
   hiddenForModal = true;
   hiddenForNext = false;
   disabled = false;
@@ -40,7 +40,7 @@ export class DepotFormulaireComponent implements OnInit {
       telephoneEmetteur: this.telephoneEmetteurFormControl,
       nomCompletBeneficiaire : this.nomCompletBeneficiaireFormControl,
       telephoneBeneficiaire : this.telephoneBeneficiaireFormControl,
-      montant : this.montantFormControl,
+      montant : this.montantFormControl
     });
   }
 
@@ -49,23 +49,23 @@ export class DepotFormulaireComponent implements OnInit {
   }
 
   disabledBeneficiaire(){
-    if (this.disabledEmetteurInputs == false){
-      this.disabledEmetteurInputs = true;
-    }
-    if (this.disabledBeneficiaireInputs == true){
-      this.disabledBeneficiaireInputs = false;
-    }
-    this.disabled = false;
+    this.disabledEmetteurInputs = false;
+    this.disabledBeneficiaireInputs = true;
+    // this.disabled = true;
     this.hiddenForModal = true;
     this.hiddenForNext = false;
   }
 
   disabledEmetteur(){
-    if (this.disabledEmetteurInputs == true){
-      this.disabledEmetteurInputs = false;
-    }
-    if (this.disabledBeneficiaireInputs == false){
-      this.disabledBeneficiaireInputs = true;
+    this.disabledBeneficiaireInputs = false;
+    this.disabledEmetteurInputs = true;
+    this.hiddenForModal = false;
+    this.hiddenForNext = true;
+    if(this.depotForm.valid){
+      this.disabled = false;
+    }else
+      if(this.depotForm.invalid){
+        this.disabled = true;
     }
   }
 
@@ -84,21 +84,20 @@ export class DepotFormulaireComponent implements OnInit {
   }
 
   nextPage(){
-    if (this.disabledEmetteurInputs == true){
-      this.disabledEmetteurInputs = false;
-    }
-    if (this.disabledBeneficiaireInputs == false){
-      this.disabledBeneficiaireInputs = true;
-      this.hiddenForModal = false;
-      this.hiddenForNext = true;
-    }else{
-      this.hiddenForModal = true;
-      this.hiddenForNext = false;
+    this.disabledBeneficiaireInputs = false;
+    this.disabledEmetteurInputs = true;
+    this.hiddenForNext = true;
+    this.hiddenForModal = false;
+    if(this.depotForm.valid){
+      this.disabled = false;
+    }else
+      if(this.depotForm.invalid){
+        this.disabled = true;
     }
   }
 
   async showModal(){
-    if(this.depotForm.valid){
+    if (this.depotForm.valid){
       this.disabled = false;
       const modal = await this.modalCtrl.create({
         component : DepotModalComponent,
@@ -109,7 +108,7 @@ export class DepotFormulaireComponent implements OnInit {
       })
       await modal.present();
     }else{
-      return this.disabled = true;
+      this.disabled = true;
     }
   }
 

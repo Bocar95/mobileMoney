@@ -82,12 +82,19 @@ export class RetraitFormulaireComponent implements OnInit {
     return this.router.navigate(['/acceuil']);
   }
 
+  refresh (){
+    this.router.navigateByUrl('/depot', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['acceuil']);
+    }); 
+  }
+
   retraitTrans(){
     return this.transactionService.retrait(this.retraitForm.value).subscribe(
       res => {
-        console.log(res)
+        console.log(res),
+        this.refresh()
       }
-    ), this.reloadComponent();
+    );
   }
 
   async showModal(){

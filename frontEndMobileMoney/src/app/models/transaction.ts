@@ -4,5 +4,6 @@ export interface Transaction {
     telephoneEmetteur: number,
     nomCompletBeneficiaire : string,
     telephoneBeneficiaire : number,
-    montant : number
+    montant : number,
+    codeTrans : string
 }

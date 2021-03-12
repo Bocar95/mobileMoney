@@ -14,12 +14,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UsersRepository::class)
  * @ApiResource(
  * collectionOperations={
+ *    "get"={"path"="/users"},
  *    "post"={
  *          "path"="/user"
  *    }
  *  },
  * itemOperations={
  *    "get"={
+ *          "path"="/user/{id}"
+ *    },
+ *    "getCompteByUserTelephone"={
+ *          "method"="get",
  *          "path"="/user/{username}/compte",
  *          "normalization_context"={"groups"={"getCompteByUserTelephone"}}
  *    }

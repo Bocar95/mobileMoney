@@ -32,6 +32,7 @@ class TransactionsController extends AbstractController
       $clientDepot = new Clients();
       $clientRetrait = new Clients();
       $service = new transactionService($transRepo);
+      $userDepot = new Users();
 
       if ($this->isGranted("EDIT",$depotTrans)) {
 
@@ -127,10 +128,13 @@ class TransactionsController extends AbstractController
           $depotTrans->setClientRetrait($clientRetrait);
         }
 
+        //on transforme l'obet en json pour pouvoir utilisé un observable coté front.
+        $transactionJson = $serializer->serialize($depotTrans,"json");
+
         //on cré la transaction.
         $manager->persist($depotTrans);
         $manager->flush();
-        return new JsonResponse("success",Response::HTTP_CREATED,[],true);
+        return  new JsonResponse($transactionJson,Response::HTTP_CREATED,[],true);
       }
       else{
         return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);

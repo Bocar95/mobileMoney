@@ -22,7 +22,7 @@
   <div id="container">
     <form [formGroup]="depotForm">
       <div>
-      <ion-list *ngIf="disabledEmetteurInputs == true">
+      <ion-list *ngIf="disabledEmetteurInputs == false">
         <ion-item>
           <ion-label  position="stacked">N° CNI</ion-label>
           <ion-input  [formControl]="cniEmetteurFormControl" (ionChange)="getClient()" placeholder="numéro de carte d'identité" required></ion-input>
@@ -51,7 +51,7 @@
       </div>
       
       <div>
-        <ion-list *ngIf="disabledBeneficiaireInputs == true">
+        <ion-list *ngIf="disabledBeneficiaireInputs == false">
           <ion-item>
             <ion-label  position="stacked">Nom Complet</ion-label>
             <ion-input  [formControl]="nomCompletBeneficiaireFormControl" placeholder="ex: Prénom et NOM" required></ion-input>

@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TransactionService } from '../services/transactionService/transaction.service';
 import { Router } from '@angular/router';
+import { CodeModalComponent } from '../code-modal/code-modal.component';
 
 @Component({
   selector: 'app-depot-modal',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class DepotModalComponent implements OnInit {
 
   @Input() data:any;
+  observable;
 
   confirmDepot : FormGroup;
 
@@ -39,11 +41,30 @@ export class DepotModalComponent implements OnInit {
     return this.router.navigate(['/acceuil']);
   }
 
+  refresh (){
+    this.router.navigateByUrl('/depot', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['acceuil']);
+    }); 
+  }
+
   depot() {
     return this.transactionService.addDepot(this.confirmDepot.value).subscribe(
       res => {
-        console.log(res)
+        console.log(res),
+        this.closeModal(),
+        this.showModal(res)
       }
-    ), this.reloadComponent();
+    );
+  }
+
+  async showModal(res){
+      const modal = await this.modalCtrl.create({
+        component : CodeModalComponent,
+        componentProps : {
+          data : [res, this.data[0]["nomCompletBeneficiaire"]]
+        },
+        cssClass : 'my-codeModal-component-css'
+      })
+      await modal.present();
   }
 }
