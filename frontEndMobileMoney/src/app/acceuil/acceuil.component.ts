@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/authService/auth.service';
-import { CompteService } from '../services/compteService/compte.service';
 import { UserService } from '../services/userService/user.service';
 
 @Component({
@@ -16,6 +14,7 @@ export class AcceuilComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.doRefresh();
     this.getCompte();
   }
 
@@ -54,6 +53,15 @@ export class AcceuilComponent implements OnInit {
     if (this.userRole() == "ROLE_ADMIN_AGENCE" || this.userRole() == "ROLE_ADMIN_SYSTEME") {
       return true;
     } 
+  }
+
+  doRefresh() {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      this.getCompte();
+    }, 2000);
   }
 
 }

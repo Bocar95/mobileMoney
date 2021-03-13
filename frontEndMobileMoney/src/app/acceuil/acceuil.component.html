@@ -13,6 +13,10 @@
     <ion-toolbar>
       <ion-row id="soldeRow">
         <ion-col size="10" id="col">
+          <ion-refresher slot="fixed" (ionRefresh)="doRefresh()">
+            <ion-refresher-content>
+            </ion-refresher-content>
+          </ion-refresher>
           <ion-label style="color: black;display: block;">Mon solde disponible</ion-label>
           <ion-label style="color: #07AEEF;display: block;font-size:1.2em; font-weight: 600;">
             {{compte.solde}} <p style="display:inline;color: black;">f cfa</p>

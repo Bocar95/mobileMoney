@@ -37,10 +37,8 @@ export class RetraitFormulaireComponent implements OnInit {
       numCni : this.cniBeneficiaireFormControl,
       nomBeneficiaire : this.nomCompletBeneficiaireFormControl,
       telephone : this.telephoneBeneficiaireFormControl,
-      montant : this.montantFormControl,
-      nomEmetteur : this.nomCompletEmetteurFormControl, 
-      telephoneEmetteur : this.telephoneEmetteurFormControl
-    });
+      montant : this.montantFormControl
+    });    
   }
 
   getBackHome(){
@@ -71,7 +69,7 @@ export class RetraitFormulaireComponent implements OnInit {
         console.log(res),
         this.transInfo = res,
         this.clientBeneficiaire = res["clientRetrait"],
-        this.clientEmetteur = res["clientDepot"]
+        this.clientEmetteur = res["clientDepot"]        
       }
     )
   }
@@ -94,7 +92,7 @@ export class RetraitFormulaireComponent implements OnInit {
       const modal = await this.modalCtrl.create({
         component : RetraitModalComponent,
         componentProps : {
-          data : [this.retraitForm.value]
+          data : [this.retraitForm.value, this.clientEmetteur["nomComplet"], this.clientEmetteur["telephone"]]
         },
         cssClass : 'my-modal-component-css'
       })

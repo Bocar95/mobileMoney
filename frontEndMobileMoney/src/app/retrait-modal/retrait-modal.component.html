@@ -8,28 +8,28 @@
 </ion-header>  
      
 <ion-content class="padding">
-  <div id="container" *ngFor="let element of data">
+  <div id="container">
     <form [formGroup]="confirmRetrait" (ngSubmit)="retraitTrans()">
       <ion-list>
         <ion-item>
           <ion-label  position="stacked">Émetteur</ion-label>
-          <ion-input  readonly [value]="element.nomEmetteur" placeholder="ex: Prénom et NOM"></ion-input>
+          <ion-input  readonly [value]="nomEmetteur" placeholder="ex: Prénom et NOM"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Téléphone</ion-label>
-          <ion-input  readonly [value]="element.telephoneEmetteur" placeholder="numéro de téléphone"></ion-input>
+          <ion-input  readonly [value]="telephoneEmetteur" placeholder="numéro de téléphone"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Bénéficiare</ion-label>
-          <ion-input  readonly [value]="element.nomBeneficiaire" placeholder="ex: Prénom et NOM"></ion-input>
+          <ion-input  readonly [value]="nomBeneficiaire" placeholder="ex: Prénom et NOM"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Téléphone</ion-label>
-          <ion-input  readonly [value]="element.telephone" placeholder="numéro de téléphone"></ion-input>
+          <ion-input  readonly [value]="telephone" placeholder="numéro de téléphone"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Montant</ion-label>
-          <ion-input  readonly [value]="element.montant" placeholder="montant"></ion-input>
+          <ion-input  readonly [value]="montant" placeholder="montant"></ion-input>
         </ion-item>
       </ion-list>
       <ion-buttons>

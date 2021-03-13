@@ -15,19 +15,25 @@ export class RetraitModalComponent implements OnInit {
 
   confirmRetrait : FormGroup;
 
+  nomBeneficiaire : string; 
+  telephone : number;
+  montant : number;
+  nomEmetteur : string;
+  telephoneEmetteur : number;
+
   constructor(private modalCtrl : ModalController, private formBuilder : FormBuilder, private transactionService : TransactionService, private router : Router) { }
 
   ngOnInit() {
     this.confirmRetrait = this.formBuilder.group({
       codeTrans : this.data[0]["codeTrans"],
       numCni : this.data[0]["numCni"],
-      nomBeneficiaire : this.data[0]["nomBeneficiaire"],
-      telephone : this.data[0]["telephone"],
-      montant : this.data[0]["montant"],
-      nomEmetteur : this.data[0]["nomEmetteur"], 
-      telephoneEmetteur : this.data[0]["telephoneEmetteur"]
+      telephone : this.data[0]["telephone"]
     });
-    console.log(this.data);
+    this.nomBeneficiaire = this.data[0]["nomBeneficiaire"]; 
+    this.telephone = this.data[0]["telephone"];
+    this.montant = this.data[0]["montant"];
+    this.nomEmetteur = this.data[1];
+    this.telephoneEmetteur = this.data[2];
   }
 
   async closeModal(){
