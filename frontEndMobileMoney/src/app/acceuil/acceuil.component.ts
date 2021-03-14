@@ -1,5 +1,7 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { UserService } from '../services/userService/user.service';
 
 @Component({
@@ -11,15 +13,27 @@ export class AcceuilComponent implements OnInit {
 
   compte = [];
 
-  constructor(private userService: UserService, private router: Router) { }
+  private  _refreshNeeded$ = new Subject<void>();
+
+  constructor(private userService: UserService, private router: Router, private location : Location) { }
 
   ngOnInit() {
-    this.doRefresh();
     this.getCompte();
   }
 
+  refresh(): void {
+    this.router.navigateByUrl("/refresh", { skipLocationChange: true }).then(() => {
+      console.log(decodeURI(this.location.path()));
+      this.router.navigate([decodeURI(this.location.path())]);
+    });
+  }
+
+  refreshNeeded$() {
+    return this._refreshNeeded$ ;
+  }
+
   getCompte(){
-    this.userService.getCompteByUserUsername(this.userUsername()).subscribe(
+    return this.userService.getCompteByUserUsername(this.userUsername()).subscribe(
       (compteElements : any) => {
         this.compte = compteElements,
         console.log(this.compte)
@@ -53,15 +67,6 @@ export class AcceuilComponent implements OnInit {
     if (this.userRole() == "ROLE_ADMIN_AGENCE" || this.userRole() == "ROLE_ADMIN_SYSTEME") {
       return true;
     } 
-  }
-
-  doRefresh() {
-    console.log('Begin async operation');
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      this.getCompte();
-    }, 2000);
   }
 
 }

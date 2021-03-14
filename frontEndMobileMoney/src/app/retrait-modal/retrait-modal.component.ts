@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { TransactionService } from '../services/transactionService/transaction.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class RetraitModalComponent implements OnInit {
   nomEmetteur : string;
   telephoneEmetteur : number;
 
-  constructor(private modalCtrl : ModalController, private formBuilder : FormBuilder, private transactionService : TransactionService, private router : Router) { }
+  constructor(private modalCtrl : ModalController, private formBuilder : FormBuilder, private transactionService : TransactionService, private navCtrl : NavController) { }
 
   ngOnInit() {
     this.confirmRetrait = this.formBuilder.group({
@@ -40,19 +40,19 @@ export class RetraitModalComponent implements OnInit {
     await this.modalCtrl.dismiss();
   }
 
-  reloadComponent() {
-    let currentUrl = this.router.url;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    return this.router.navigate(['/acceuil']);
-  }
+  // reloadComponent() {
+  //   let currentUrl = this.router.url;
+  //   this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  //   this.router.onSameUrlNavigation = 'reload';
+  //   return this.router.navigate(['/acceuil']);
+  // }
 
   retraitTrans(){
     return this.transactionService.retrait(this.confirmRetrait.value).subscribe(
       res => {
         console.log(res)
       }
-    ), this.closeModal(), this.reloadComponent();
+    ), this.closeModal(), this.navCtrl.pop();
   }
 
 }

@@ -13,6 +13,7 @@ import { CodeModalComponent } from '../code-modal/code-modal.component';
 export class DepotModalComponent implements OnInit {
 
   @Input() data:any;
+
   observable;
 
   confirmDepot : FormGroup;

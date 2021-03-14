@@ -14,6 +14,7 @@ import { DepotFormulaireComponent } from '../depot-formulaire/depot-formulaire.c
 import { RetraitFormulaireComponent } from '../retrait-formulaire/retrait-formulaire.component';
 import { CodeModalComponent } from '../code-modal/code-modal.component';
 import { RetraitModalComponent } from '../retrait-modal/retrait-modal.component';
+import { RefreshComponent } from '../refresh/refresh.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { RetraitModalComponent } from '../retrait-modal/retrait-modal.component'
     RetraitFormulaireComponent,
     DepotModalComponent,
     CodeModalComponent,
-    RetraitModalComponent
+    RetraitModalComponent,
+    RefreshComponent
   ]
 })
 export class HomePageModule {}

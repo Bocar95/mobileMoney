@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalController, NavController } from '@ionic/angular';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-code-modal',
@@ -14,14 +17,21 @@ export class CodeModalComponent implements OnInit {
   date;
   montant;
 
-  constructor() { }
+  constructor(private router: Router, private modalCtrl : ModalController, private navCtrl : NavController) { }
 
   ngOnInit() {
     this.codeTrans = this.data[0]["codeTrans"];
     this.date = this.data[0]["dateDepot"];
     this.montant = this.data[0]["montant"];
     this.nomBeneficiaire = this.data[1];
+  }
 
+  async closeModal(){
+    await this.modalCtrl.dismiss();
+  }
+
+  sendSms() {
+   return  this.closeModal(), this.navCtrl.pop();
   }
 
 }

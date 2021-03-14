@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { ConnexionPageComponent } from './connexion-page/connexion-page.component';
 import { DepotFormulaireComponent } from './depot-formulaire/depot-formulaire.component';
+import { RefreshComponent } from './refresh/refresh.component';
 import { RetraitFormulaireComponent } from './retrait-formulaire/retrait-formulaire.component';
 import { AuthGuard } from './services/authGuardService/auth.guard';
 
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'connexion', component: ConnexionPageComponent },
   { path: 'acceuil', component: AcceuilComponent, canActivate: [AuthGuard] },
   { path : 'depot', component: DepotFormulaireComponent, canActivate: [AuthGuard] },
-  { path : 'retrait', component: RetraitFormulaireComponent, canActivate: [AuthGuard] }
+  { path : 'retrait', component: RetraitFormulaireComponent, canActivate: [AuthGuard] },
+  { path : 'refresh', component: RefreshComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -82,8 +82,8 @@ class TransactionsController extends AbstractController
         }
 
         //si oui on ajoute l'argent de l'opération sur son compte et on modifi la date de mise à jour.
-        $compteAvecNewSolde = $compteDepot->setSolde($soldeCompte + $fraisOperationtotal);
-        $compteAvecNewSolde = $compteDepot->setDateCreation($date);
+        $compteWithNewData = $compteDepot->setSolde($soldeCompte - $fraisOperationtotal);
+        $compteWithNewData = $compteDepot->setDateCreation($date);
 
         //on fait les set()
         $depotTrans->setMontant($depotTransTab["montant"]);
@@ -94,7 +94,7 @@ class TransactionsController extends AbstractController
         $depotTrans->setFraisRetrait($fraisRetrait);
         $depotTrans->setFraisEtat($fraisEtat);
         $depotTrans->setFraisSysteme($fraisSysteme);
-        $depotTrans->setCompteDepot($compteAvecNewSolde);
+        $depotTrans->setCompteDepot($compteWithNewData);
 
         //on détermine si le client qui fait le dépot éxiste dans la base de données. Puis on l'ajoute dans la table Client
         //faisant une opération de dépot

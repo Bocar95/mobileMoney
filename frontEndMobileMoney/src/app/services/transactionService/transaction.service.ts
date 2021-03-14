@@ -1,8 +1,10 @@
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Transaction } from 'src/app/models/transaction';
+import {map, tap} from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class TransactionService {
 
   constructor(private http : HttpClient) { }
 
-  addDepot(data) : Observable<Transaction>{
+  addDepot(data : NgForm) : Observable<Transaction>{
     return this.http.post<Transaction>(`${this.host}/api/user/transactions`, data);
   }
 

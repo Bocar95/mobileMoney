@@ -29,7 +29,7 @@ class ClientsVoter extends Voter
             case 'EDIT':
                 // logic to determine if the user can EDIT
                 // return true or false
-                return $user-> getRoles()[0] === "ROLE_ADMIN_SYSTEME" || $user-> getRoles()[0] === "ROLE_ADMIN_AGENCE";
+                return $user-> getRoles()[0] === "ROLE_ADMIN_SYSTEME" || $user-> getRoles()[0] === "ROLE_ADMIN_AGENCE" || $user-> getRoles()[0] === "ROLE_USER_AGENCE";
                 break;
             case 'VIEW':
                 // logic to determine if the user can VIEW

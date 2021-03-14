@@ -9,6 +9,7 @@ use App\Entity\Comptes;
 use App\Entity\Transactions;
 use App\Repository\RolesRepository;
 use App\Repository\UsersRepository;
+use App\Repository\AgencesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ class UserController extends AbstractController
     /**
      * @Route(path="/api/user", name="addUser", methods="POST")
      */
-    public function addUser(Request $request,SerializerInterface $serializer ,EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, RolesRepository $roleRepo)
+    public function addUser(Request $request,SerializerInterface $serializer ,EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, RolesRepository $roleRepo, AgencesRepository $agenceRepo)
     {
         $user = new Users();
         $agence = new Agences();
@@ -51,17 +52,29 @@ class UserController extends AbstractController
             $date = new DateTime();
             $date->format('Y-m-d H:i:s');
 
-            $compte->setNumeroCompte("iss876ghj");
-            $compte->setDateCreation($date);
-            $compte->setSolde("500000");
-            $compte->setUsers($user);
+            $agenceExistante = $agenceRepo->findOneBy([
+              "telephone" => $userTab["agence"]["telephone"]
+            ]);
 
-            $agence->setTelephone($userTab["agence"]["telephone"]);
-            $agence->setAdresse($userTab["agence"]["adresse"]);
-            $agence->setLattitude($userTab["agence"]["lattitude"]);
-            $agence->setLongitude($userTab["agence"]["longitude"]);
-            $agence->setCompte($compte);
-            $user->setAgences($agence);
+            if($agenceExistante && ($role->getLibelle() == "USER_AGENCE")){
+              $agenceExistante->addUser($user);
+            }
+            else{
+              if ($agenceExistante && ($role->getLibelle() == "USER_ADMIN")) {
+                return $this->json(["message" => "Désolé, mais ce numéro d'agence existe déja."], Response::HTTP_FORBIDDEN);
+              }
+              $compte->setNumeroCompte("ism786hhh");
+              $compte->setDateCreation($date);
+              $compte->setSolde("500000");
+              $compte->setUsers($user);
+  
+              $agence->setTelephone($userTab["agence"]["telephone"]);
+              $agence->setAdresse($userTab["agence"]["adresse"]);
+              $agence->setLattitude($userTab["agence"]["lattitude"]);
+              $agence->setLongitude($userTab["agence"]["longitude"]);
+              $agence->setCompte($compte);
+              $user->setAgences($agence);
+            }
 
             $manager->persist($user);
             $manager->flush();

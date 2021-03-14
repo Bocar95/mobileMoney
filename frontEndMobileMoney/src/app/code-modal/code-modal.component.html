@@ -17,10 +17,10 @@
         </ion-item>
       </ion-list>
       <ion-buttons>
-        <ion-button (click)="closeModal()" size="large" id="annuler">
+        <ion-button (click)="sendSms()" size="large" id="annuler">
           <ion-icon name="arrow-redo-outline"></ion-icon>
         </ion-button>
-        <ion-button size="large" type="submit" color="#FA4A0C" id="depot">
+        <ion-button (click)="sendSms()" size="large" type="submit" color="#FA4A0C" id="depot">
           <ion-icon name="mail-open-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
