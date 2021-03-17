@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { Subject } from 'rxjs';
 import { UserService } from '../services/userService/user.service';
 
@@ -15,10 +16,16 @@ export class AcceuilComponent implements OnInit {
 
   private  _refreshNeeded$ = new Subject<void>();
 
-  constructor(private userService: UserService, private router: Router, private location : Location) { }
+  constructor(private userService: UserService, private router: Router, private location : Location, private storage : Storage) { }
 
   ngOnInit() {
-    this.getCompte();
+    this.userService.getCompteByUserUsername(this.userUsername()).subscribe(
+      (compteElements : any) => {
+        this.compte = compteElements,
+        console.log(this.compte)
+      }
+    );
+    this.reloadComponent();
   }
 
   refresh(): void {
@@ -32,13 +39,21 @@ export class AcceuilComponent implements OnInit {
     return this._refreshNeeded$ ;
   }
 
+  reloadComponent() {
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.refresh();
+    return this.router.navigate(['/acceuil']);
+  }
+
   getCompte(){
     return this.userService.getCompteByUserUsername(this.userUsername()).subscribe(
       (compteElements : any) => {
         this.compte = compteElements,
         console.log(this.compte)
       }
-    );
+    ), this.reloadComponent();
   }
 
   tokenElement() {

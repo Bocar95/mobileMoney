@@ -268,11 +268,11 @@ class TransactionsController extends AbstractController
           "id" => $id
         ]);
 
-        $transDepot [] = $transRepo->findBy([
+        $transactions []= $transRepo->findBy([
           "usersDepot" => $id
         ]);
 
-        $transRetrait [] = $transRepo->findBy([
+        $transactions []= $transRepo->findBy([
           "usersRetrait" => $id
         ]);
 
@@ -283,19 +283,15 @@ class TransactionsController extends AbstractController
           );
         }
 
-        if($transDepot){
-          $transactions []= [
-            "depot"=>$transDepot
-          ];
+        foreach ($transactions as $value1) {
+            foreach ($value1 as $value2) {
+              $trans [] = $value2;
+            }
         }
 
-        if($transRetrait){
-          $transactions []= [
-            "retrait"=>$transRetrait
-          ];
-        }
+        array_multisort($trans);
 
-        return $this->json($transactions, 200, [], ["groups" => ["getTransByIdUser"]]);
+        return $this->json($trans, 200, [], ["groups" => ["getTransByIdUser"]]);
       }
       else{
         return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);

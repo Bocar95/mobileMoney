@@ -13,10 +13,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AuthGuard } from './services/authGuardService/auth.guard';
+import { OrderByPipe } from './order-by.pipe';
+import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListTransactionsComponent,
+    OrderByPipe
   ],
   entryComponents: [],
   imports: [

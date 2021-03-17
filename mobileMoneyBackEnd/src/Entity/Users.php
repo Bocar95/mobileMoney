@@ -27,6 +27,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *          "method"="get",
  *          "path"="/user/{username}/compte",
  *          "normalization_context"={"groups"={"getCompteByUserTelephone"}}
+ *    },
+ *    "getUserByUsername"={
+ *          "method"="get",
+ *          "path"="/user/{username}",
+ *          "normalization_context"={"groups"={"getUserByUsername"}}
  *    }
  *  }
  * )
@@ -37,11 +42,13 @@ class Users implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"getUserByUsername"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"getUserByUsername"})
      */
     private $telephone;
 
@@ -55,18 +62,19 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getTransByIdUser"})
+     * @Groups({"getTransByIdUser","getUserByUsername"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getTransByIdUser"})
+     * @Groups({"getTransByIdUser","getUserByUsername"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getUserByUsername"})
      */
     private $email;
 

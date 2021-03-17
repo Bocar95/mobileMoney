@@ -39,7 +39,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  }
  * )
  * @UniqueEntity("codeTrans")
- * @ApiFilter(DateFilter::class, properties={"dateDepot"})
+//  * @ApiFilter(DateFilter::class, properties={"dateRetrait"})
  */
 class Transactions
 {

@@ -86,16 +86,25 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/{username}", name="getAgenceByUserUsername", methods={"GET"})
+     * @Route("/api/user/{username}", name="getUserByUsername", methods={"GET"})
      */
-    public function getAgenceByUserUsername($username, UsersRepository $userRepo)
+    public function getUserByUsername(Request $request,UsersRepository $userRepo)
     {
       $user = new Users();
 
       if ($this->isGranted("VIEW",$user)) {
-        $user = $userRepo->findOneBy([
-          "telephone" => $username
-        ]);
+
+        //Recupération du token pour distinguer le user qui fait le retrait.
+        $token = substr($request->server->get("HTTP_AUTHORIZATION"), 7);
+        $token = explode(".",$token);
+        if (isset($token[1])){
+          $payload = $token[1];
+          $payload = json_decode(base64_decode($payload));
+
+          $user = $userRepo->findOneBy([
+            "telephone" => $payload->username
+          ]);
+        }
 
         if (!$user){
           return $this->json(
@@ -104,7 +113,7 @@ class UserController extends AbstractController
           );
         }
 
-        return $this->json($user, 200, [], ["groups" => ["getAgenceByUserUsername"]]);
+        return $this->json($user, 200, [], ["groups" => ["getUserByUsername"]]);
       }
       else{
         return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);

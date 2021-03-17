@@ -14,7 +14,7 @@
       <ion-row id="soldeRow">
         <ion-col size="10" id="col">
           <ion-label style="color: black;display: block;">Mon solde disponible</ion-label>
-          <ion-label style="color: #07AEEF;display: block;font-size:1.2em; font-weight: 600;" (ionChange)="getCompte()">
+          <ion-label style="color: #07AEEF;display: block;font-size:1.2em; font-weight: 600;" (ionChange)="compte">
             {{compte.solde}} <p style="display:inline;color: black;">f cfa</p>
             <ion-icon name="eye-off-outline" style="float: right;"></ion-icon>
           </ion-label>
@@ -40,13 +40,13 @@
           <ion-icon name="chevron-forward-outline"></ion-icon>
           <hr>
         </ion-item>
-        <ion-item routerDirection="root" [routerLink]="" lines="none" detail="false">
+        <ion-item routerDirection="root" routerLink="/myTransactions" lines="none" detail="false">
           <ion-icon name="repeat-outline"></ion-icon>
           <ion-label>Mes transactions</ion-label>
           <ion-icon name="chevron-forward-outline"></ion-icon>
           <hr>
         </ion-item>
-        <ion-item routerDirection="root" [routerLink]="" lines="none" detail="false" *ngIf="Admin()===true">
+        <ion-item routerDirection="root" routerLink="/allTransactions" lines="none" detail="false" *ngIf="Admin()===true">
           <ion-icon name="analytics-outline"></ion-icon>
           <ion-label>Toutes les transactions</ion-label>
           <ion-icon name="chevron-forward-outline"></ion-icon>

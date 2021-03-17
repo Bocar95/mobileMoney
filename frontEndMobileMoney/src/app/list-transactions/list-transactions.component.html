@@ -1,0 +1,65 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-buttons slot="start" (click)="getBackHome()">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-buttons>
+    <ion-img src="../assets/icon/logo.jpeg"></ion-img>
+  </ion-toolbar>  
+</ion-header>  
+     
+<ion-content class="padding">
+  <div id="container">
+    <ion-row style="font-size: 12px;">
+      <ion-col>
+        Date
+      </ion-col>
+      <ion-col>
+        Utilisateur
+      </ion-col>
+      <ion-col>
+        Type
+      </ion-col>
+      <ion-col>
+        Montant
+      </ion-col>
+      <ion-col>
+        Frais
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row *ngFor="let transElement of trans | orderBy:'dateDepot'"> -->
+    <ion-row *ngFor="let transElement of trans[0]" style="font-size: 12px;">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+                {{ transElement.dateDepot | date:'shortDate' }}
+            </ion-col>
+            <ion-col>
+              <div>
+                {{ userDepot.prenom }} {{ userDepot.nom }}
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                {{ transElement.montant }}
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                {{ transElement.frais }}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-row>
+  </div>
+  
+  <ion-footer>
+  </ion-footer>
+
+</ion-content>
+

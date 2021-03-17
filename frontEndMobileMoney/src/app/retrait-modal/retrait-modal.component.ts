@@ -21,7 +21,7 @@ export class RetraitModalComponent implements OnInit {
   nomEmetteur : string;
   telephoneEmetteur : number;
 
-  constructor(private modalCtrl : ModalController, private formBuilder : FormBuilder, private transactionService : TransactionService, private navCtrl : NavController) { }
+  constructor(private modalCtrl : ModalController, private formBuilder : FormBuilder, private transactionService : TransactionService, private navCtrl : NavController, private router : Router) { }
 
   ngOnInit() {
     this.confirmRetrait = this.formBuilder.group({
@@ -52,7 +52,7 @@ export class RetraitModalComponent implements OnInit {
       res => {
         console.log(res)
       }
-    ), this.closeModal(), this.navCtrl.pop();
+    ), this.closeModal(), this.router.navigate(['/acceuil']);
   }
 
 }

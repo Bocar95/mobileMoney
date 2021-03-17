@@ -30,4 +30,12 @@ export class TransactionService {
   retrait(data){
     return this.http.put(`${this.host}/api/user/transactions/retrait`, data);
   }
+
+  getTransactionOfUser(id : number){
+    return this.http.get(`${this.host}/api/user/${id}/transactions`);
+  }
+
+  getUserByUsername(username : number){
+    return this.http.get(`${this.host}/api/user/${username}`);
+  }
 }

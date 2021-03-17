@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
@@ -17,7 +18,7 @@ export class CodeModalComponent implements OnInit {
   date;
   montant;
 
-  constructor(private router: Router, private modalCtrl : ModalController, private navCtrl : NavController) { }
+  constructor(private router: Router, private modalCtrl : ModalController, private navCtrl : NavController, private location : Location) { }
 
   ngOnInit() {
     this.codeTrans = this.data[0]["codeTrans"];
@@ -31,7 +32,15 @@ export class CodeModalComponent implements OnInit {
   }
 
   sendSms() {
-   return  this.closeModal(), this.navCtrl.pop();
+   return  this.closeModal(), this.router.navigate(['/acceuil']);
   }
+
+  // reloadComponent() {
+  //   let currentUrl = this.router.url;
+  //   this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  //   this.router.onSameUrlNavigation = 'reload';
+  //   console.log("here");
+  //   return this.router.navigate(['/acceuil']);
+  // }
 
 }
