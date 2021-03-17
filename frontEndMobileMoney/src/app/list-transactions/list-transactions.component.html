@@ -27,35 +27,37 @@
       </ion-col>
     </ion-row>
     <!-- <ion-row *ngFor="let transElement of trans | orderBy:'dateDepot'"> -->
-    <ion-row *ngFor="let transElement of trans[0]" style="font-size: 12px;">
+    <ng-container *ngFor="let transElement of trans, let i = index">
+    <ion-row  *ngFor="let transElem of transElement['depot'] let j=index" style="font-size: 12px;">
         <ion-grid>
           <ion-row>
             <ion-col>
-                {{ transElement.dateDepot | date:'shortDate' }}
+              {{ transElement['depot'][j].dateDepot | date:'shortDate'}}
             </ion-col>
             <ion-col>
               <div>
-                {{ userDepot.prenom }} {{ userDepot.nom }}
+                <!-- {{ userDepot.prenom }} {{ userDepot.nom }} -->
               </div>
             </ion-col>
             <ion-col>
               <div>
-                
+                depot
               </div>
             </ion-col>
             <ion-col>
               <div>
-                {{ transElement.montant }}
+                {{ transElement['depot'][j].montant }}
               </div>
             </ion-col>
             <ion-col>
               <div>
-                {{ transElement.frais }}
+                {{ transElement['depot'][j].frais }}
               </div>
             </ion-col>
           </ion-row>
         </ion-grid>
     </ion-row>
+  </ng-container>
   </div>
   
   <ion-footer>

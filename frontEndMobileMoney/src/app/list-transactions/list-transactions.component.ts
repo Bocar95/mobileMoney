@@ -10,10 +10,11 @@ import { UserService } from '../services/userService/user.service';
 })
 export class ListTransactionsComponent implements OnInit {
 
-  tab = [];
+  tab : {}[];
+  tab2 : any;
 
   username : number;
-  trans = [];
+  trans;
   userDepot;
   userRetrait;
   prenom;
@@ -47,21 +48,26 @@ export class ListTransactionsComponent implements OnInit {
     return this.transationService.getUserByUsername(this.username).subscribe(
       res => {
         console.log(res),
-        this.getMyTransactions(res["id"])
+        this.fusionOp(res["id"])
       }
     );
   }
 
-  getMyTransactions(id){
-    return this.transationService.getTransactionOfUser(id).subscribe(
-       res => {
-        console.log(res),
-        this.trans = [res],
-        this.userDepot = res[0]["usersDepot"],
-        this.userRetrait = res[0]["usersRetrait"],
-        console.log(this.userDepot)
-       }
-     )
+  fusionOp(id){
+    return this.transationService.fusion(id).subscribe({
+      next: (res) => {
+        this.tab2 = res,
+        this.tab2["depot"].forEach(element => {
+          element['type']="depot"
+        });
+        this.tab2["retrait"].forEach(element => {
+          element['type']="retrait"
+        });
+        this.tab = [...this.tab2['depot'],...this.tab2["retrait"]],
+        console.log(this.tab)
+      },
+      error: (err) => {}
+    });
   }
   
 }

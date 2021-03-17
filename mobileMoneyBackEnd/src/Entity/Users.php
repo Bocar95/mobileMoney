@@ -62,13 +62,13 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getTransByIdUser","getUserByUsername"})
+     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getTransByIdUser","getUserByUsername"})
+     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername"})
      */
     private $nom;
 

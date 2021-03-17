@@ -256,9 +256,9 @@ class TransactionsController extends AbstractController
     }
 
     /**
-     * @Route(path="/api/user/{id}/transactions", name="getTransByIdUser", methods={"GET"})
+     * @Route(path="/api/user/{id}/depotTransactions", name="getDepotTransByIdUser", methods={"GET"})
      */
-    public function getTransByIdUser($id, SerializerInterface $serializer, UsersRepository $usersRepo, TransactionsRepository $transRepo)
+    public function getDepotTransByIdUser($id, SerializerInterface $serializer, UsersRepository $usersRepo, TransactionsRepository $transRepo)
     {
       $user = new Users();
 
@@ -268,12 +268,37 @@ class TransactionsController extends AbstractController
           "id" => $id
         ]);
 
-        $transactions []= $transRepo->findBy([
+        if (!$user){
+          return $this->json(
+            ["message" => "Désolé, mais ce user n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
+        }
+
+        $depotTransactions = $transRepo->findBy([
           "usersDepot" => $id
         ]);
 
-        $transactions []= $transRepo->findBy([
-          "usersRetrait" => $id
+        array_multisort($depotTransactions);
+
+        return $this->json($depotTransactions, 200, [], ["groups" => ["getDepotTransByIdUser"]]);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
+    /**
+     * @Route(path="/api/user/{id}/retraitTransactions", name="getRetraitTransByIdUser", methods={"GET"})
+     */
+    public function getRetraitTransByIdUser($id, SerializerInterface $serializer, UsersRepository $usersRepo, TransactionsRepository $transRepo)
+    {
+      $user = new Users();
+
+      if ($this->isGranted("VIEW",$user)) {
+
+        $user = $usersRepo->findOneBy([
+          "id" => $id
         ]);
 
         if (!$user){
@@ -283,15 +308,19 @@ class TransactionsController extends AbstractController
           );
         }
 
-        foreach ($transactions as $value1) {
-            foreach ($value1 as $value2) {
-              $trans [] = $value2;
-            }
-        }
+        $retraitTransactions = $transRepo->findBy([
+          "usersRetrait" => $id
+        ]);
 
-        array_multisort($trans);
+        // foreach ($transactions as $value1) {
+        //     foreach ($value1 as $value2) {
+        //       $trans [] = $value2;
+        //     }
+        // }
 
-        return $this->json($trans, 200, [], ["groups" => ["getTransByIdUser"]]);
+        array_multisort($retraitTransactions);
+
+        return $this->json($retraitTransactions, 200, [], ["groups" => ["getRetraitTransByIdUser"]]);
       }
       else{
         return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);

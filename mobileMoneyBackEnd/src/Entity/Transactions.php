@@ -22,9 +22,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *    "get"={
  *          "path"="/user/transaction/code"
  *    },
- *    "getTransByIdUser"={
+ *    "getDepotTransByIdUser"={
  *          "methods"="get",
- *          "path"="/user/{id}/transactions"
+ *          "path"="/user/{id}/depotTransactions"
  *    },
  *    "getTransByIdCompte"={
  *          "methods"="get",
@@ -52,19 +52,19 @@ class Transactions
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"getTransByCode","getTransByIdUser","getTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getTransByIdCompte"})
      */
     private $montant;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"getTransByCode","getTransByIdUser","getTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getTransByIdCompte"})
      */
     private $dateDepot;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"getTransByCode","getTransByIdUser","getTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getTransByIdCompte"})
      */
     private $dateRetrait;
 
@@ -75,7 +75,7 @@ class Transactions
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"getTransByIdUser","getTransByIdCompte"})
+     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getTransByIdCompte"})
      */
     private $frais;
 
@@ -101,13 +101,13 @@ class Transactions
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactionsDepot")
-     * @Groups({"getTransByIdUser"})
+     * @Groups({"getDepotTransByIdUser"})
      */
     private $usersDepot;
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactionsRetrait")
-     * @Groups({"getTransByIdUser"})
+     * @Groups({"getRetraitTransByIdUser"})
      */
     private $usersRetrait;
 
