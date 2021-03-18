@@ -9,7 +9,7 @@
      
 <ion-content class="padding">
   <div id="container">
-    <ion-row style="font-size: 12px;">
+    <ion-row style="font-size: 12px; font-weight: bold;text-align: center;">
       <ion-col>
         Date
       </ion-col>
@@ -27,8 +27,39 @@
       </ion-col>
     </ion-row>
     <!-- <ion-row *ngFor="let transElement of trans | orderBy:'dateDepot'"> -->
-    <ion-virtual-scroll [items]="tab" approxItemHeight="20em">
-    <ion-row  *ngFor="let transElement of tab" style="font-size: 12px;">
+    <ng-container *ngFor="let trans of tab2">
+      <ng-container *ngIf="trans['data'] | async as result">
+        <ion-row  *ngFor="let element of result" style="font-size: 12px;">
+          <ion-grid>
+            <ion-row>
+              <ion-col *ngIf="trans.type == 'depot'">
+                {{ element.dateDepot | date:'shortDate'}}
+              </ion-col>
+              <ion-col *ngIf="trans.type == 'retrait'">
+                {{ element.dateRetrait | date:'shortDate'}}
+              </ion-col>
+              <ion-col *ngIf="trans.type == 'depot'">
+                {{ element["clientDepot"].nomComplet }}
+              </ion-col>
+              <ion-col *ngIf="trans.type == 'retrait'">
+                {{ element["clientRetrait"].nomComplet }}
+              </ion-col>
+              <ion-col>
+                {{ trans.type }}
+              </ion-col>
+              <ion-col>
+                {{ element.montant }}
+              </ion-col>
+              <ion-col>
+                {{ element.frais }}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-row>
+      </ng-container>
+    </ng-container>
+
+    <!-- <ion-row  *ngFor="let transElement of tab" style="font-size: 12px;">
       <ion-grid>
         <ion-row>
           <ion-col *ngIf="transElement.type == 'depot'">
@@ -63,8 +94,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-row>
-  </ion-virtual-scroll>
+    </ion-row> -->
   </div>
   
   <ion-footer>

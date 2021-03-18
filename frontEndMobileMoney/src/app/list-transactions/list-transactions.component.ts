@@ -25,20 +25,12 @@ export class ListTransactionsComponent implements OnInit {
     return this.router.navigate(['/acceuil']);
   }
 
-  getTrans(id){
+  getNewTrans(id){
     return this.transationService.fusion(id).subscribe({
-      next: (res) => {
+      next: res=>{
         this.tab2 = res,
-        this.tab2["depot"].forEach(element => {
-          element['type']="depot"
-        });
-        this.tab2["retrait"].forEach(element => {
-          element['type']="retrait"
-        });
-        this.tab = [...this.tab2['depot'],...this.tab2["retrait"]],
-        console.log(this.tab)
-      },
-      error: (err) => {}
+        console.log(this.tab2[0]["data"]);
+      }
     });
   }
 
@@ -46,7 +38,7 @@ export class ListTransactionsComponent implements OnInit {
     return this.transationService.getUserByUsername(this.username).subscribe(
       res => {
         console.log(res),
-        this.getTrans(res["id"])
+        this.getNewTrans(res["id"])
       }
     );
   }

@@ -1,7 +1,7 @@
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { Transaction } from 'src/app/models/transaction';
 import { NgForm } from '@angular/forms';
 
@@ -31,10 +31,10 @@ export class TransactionService {
   }
 
   fusion(id){
-    return forkJoin({
-      depot: this.http.get(`${this.host}/api/user/${id}/depotTransactions`),
-      retrait: this.http.get(`${this.host}/api/user/${id}/retraitTransactions`)
-    })
+    return of([
+      {type:"depot",data: this.http.get(`${this.host}/api/user/${id}/depotTransactions`)},
+      {type:"retrait",data: this.http.get(`${this.host}/api/user/${id}/retraitTransactions`)}
+    ]);
   }
 
   getUserByUsername(username : number){

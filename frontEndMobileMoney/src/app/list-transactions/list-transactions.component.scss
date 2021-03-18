@@ -19,11 +19,10 @@
 
   #container {
     text-align: center;
-    background-color: red;
     left: 1rem;
     right: 1rem;
     display: block;
-    height: 20em;
+    height: auto;
     margin-top: 3em;
   }
   
@@ -78,5 +77,14 @@
     margin: 0px auto;
     border-radius: 6px;
     margin-top: 6em;
+  }
+
+  div[scrolly=true] {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  div[scrolly=true] {
+    overflow-y: auto;
   }
   

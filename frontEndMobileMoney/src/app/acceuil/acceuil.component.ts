@@ -47,15 +47,6 @@ export class AcceuilComponent implements OnInit {
     return this.router.navigate(['/acceuil']);
   }
 
-  getCompte(){
-    return this.userService.getCompteByUserUsername(this.userUsername()).subscribe(
-      (compteElements : any) => {
-        this.compte = compteElements,
-        console.log(this.compte)
-      }
-    ), this.reloadComponent();
-  }
-
   tokenElement() {
     let token = localStorage.getItem('token');
     var base64Url = token.split('.')[1];
@@ -68,14 +59,23 @@ export class AcceuilComponent implements OnInit {
     return element;
   }
 
-  userRole () {
-    let role = this.tokenElement();
-    return role["roles"];
-  }
-
   userUsername() {
     let username = this.tokenElement();
     return username["username"];
+  }
+
+  getCompte(){
+    return this.userService.getCompteByUserUsername(this.userUsername()).subscribe(
+      (compteElements : any) => {
+        this.compte = compteElements,
+        console.log(this.compte)
+      }
+    ), this.reloadComponent();
+  }
+
+  userRole () {
+    let role = this.tokenElement();
+    return role["roles"];
   }
 
   Admin() {

@@ -34,7 +34,7 @@ class Clients
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getTransByCode","getClientByNci"})
+     * @Groups({"getTransByCode","getClientByNci","getDepotTransByIdUser","getRetraitTransByIdUser"})
      */
     private $nomComplet;
 

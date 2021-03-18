@@ -2,7 +2,6 @@ import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-code-modal',
@@ -32,15 +31,7 @@ export class CodeModalComponent implements OnInit {
   }
 
   sendSms() {
-   return  this.closeModal(), this.router.navigate(['/acceuil']);
+   return  this.closeModal(), this.router.navigate(['/depot']);
   }
-
-  // reloadComponent() {
-  //   let currentUrl = this.router.url;
-  //   this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-  //   this.router.onSameUrlNavigation = 'reload';
-  //   console.log("here");
-  //   return this.router.navigate(['/acceuil']);
-  // }
 
 }

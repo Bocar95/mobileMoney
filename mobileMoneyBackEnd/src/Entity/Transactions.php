@@ -113,13 +113,13 @@ class Transactions
 
     /**
      * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactionsRetrait", cascade="persist")
-     * @Groups({"getTransByCode"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser"})
      */
     private $clientRetrait;
 
     /**
      * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactionsDepot", cascade="persist")
-     * @Groups({"getTransByCode"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser"})
      */
     private $clientDepot;
 
