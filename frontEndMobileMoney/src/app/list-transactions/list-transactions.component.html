@@ -27,37 +27,44 @@
       </ion-col>
     </ion-row>
     <!-- <ion-row *ngFor="let transElement of trans | orderBy:'dateDepot'"> -->
-    <ng-container *ngFor="let transElement of trans, let i = index">
-    <ion-row  *ngFor="let transElem of transElement['depot'] let j=index" style="font-size: 12px;">
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              {{ transElement['depot'][j].dateDepot | date:'shortDate'}}
-            </ion-col>
-            <ion-col>
-              <div>
-                <!-- {{ userDepot.prenom }} {{ userDepot.nom }} -->
-              </div>
-            </ion-col>
-            <ion-col>
-              <div>
-                depot
-              </div>
-            </ion-col>
-            <ion-col>
-              <div>
-                {{ transElement['depot'][j].montant }}
-              </div>
-            </ion-col>
-            <ion-col>
-              <div>
-                {{ transElement['depot'][j].frais }}
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <ion-virtual-scroll [items]="tab" approxItemHeight="20em">
+    <ion-row  *ngFor="let transElement of tab" style="font-size: 12px;">
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngIf="transElement.type == 'depot'">
+            {{ transElement.dateDepot | date:'shortDate'}}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'retrait'">
+            {{ transElement.dateRetrait | date:'shortDate'}}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'depot'">
+            {{ transElement["usersDepot"].prenom}} {{ transElement["usersDepot"].nom}}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'retrait'">
+            {{ transElement["usersRetrait"].prenom}} {{ transElement["usersRetrait"].nom}}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'depot'">
+            {{ transElement.type }}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'retrait'">
+            {{ transElement.type }}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'depot'">
+            {{ transElement.montant }}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'retrait'">
+            {{ transElement.montant }}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'depot'">
+            {{ transElement.frais }}
+          </ion-col>
+          <ion-col *ngIf="transElement.type == 'retrait'">
+            {{ transElement.frais }}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-row>
-  </ng-container>
+  </ion-virtual-scroll>
   </div>
   
   <ion-footer>
