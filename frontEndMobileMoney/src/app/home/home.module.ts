@@ -17,6 +17,7 @@ import { RetraitModalComponent } from '../retrait-modal/retrait-modal.component'
 import { RefreshComponent } from '../refresh/refresh.component';
 import { FraisCalculatorComponent } from '../frais-calculator/frais-calculator.component';
 import { CalculatorModalComponent } from '../calculator-modal/calculator-modal.component';
+import { CompteTransactionsComponent } from '../compte-transactions/compte-transactions.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { CalculatorModalComponent } from '../calculator-modal/calculator-modal.c
     RetraitModalComponent,
     RefreshComponent,
     FraisCalculatorComponent,
-    CalculatorModalComponent
+    CalculatorModalComponent,
+    CompteTransactionsComponent
   ]
 })
 export class HomePageModule {}

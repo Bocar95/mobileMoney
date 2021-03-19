@@ -26,9 +26,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          "methods"="get",
  *          "path"="/user/{id}/depotTransactions"
  *    },
- *    "getTransByIdCompte"={
+ *    "getDepotTransByIdCompte"={
  *          "methods"="get",
- *          "path"="/admin/compte/{id}/transactions"
+ *          "path"="/admin/compte/{id}/depotTransactions"
+ *    },
+ *    "getRetraitTransByIdCompte"={
+ *          "methods"="get",
+ *          "path"="/admin/compte/{id}/retraitTransactions"
  *    },
  *    "put"={
  *          "path"="/user/transactions/retrait"
@@ -52,19 +56,19 @@ class Transactions
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $montant;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $dateDepot;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $dateRetrait;
 
@@ -75,7 +79,7 @@ class Transactions
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getTransByIdCompte"})
+     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $frais;
 
@@ -101,25 +105,25 @@ class Transactions
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactionsDepot")
-     * @Groups({"getDepotTransByIdUser"})
+     * @Groups({"getDepotTransByIdUser","getDepotTransByIdCompte"})
      */
     private $usersDepot;
 
     /**
      * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="transactionsRetrait")
-     * @Groups({"getRetraitTransByIdUser"})
+     * @Groups({"getRetraitTransByIdUser","getRetraitTransByIdCompte"})
      */
     private $usersRetrait;
 
     /**
      * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactionsRetrait", cascade="persist")
-     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $clientRetrait;
 
     /**
      * @ORM\ManyToOne(targetEntity=Clients::class, inversedBy="transactionsDepot", cascade="persist")
-     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $clientDepot;
 

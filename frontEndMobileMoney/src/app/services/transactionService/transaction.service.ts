@@ -37,6 +37,13 @@ export class TransactionService {
     ]);
   }
 
+  getTransactionsByCompte(id){
+    return of([
+      {type:"depot",data: this.http.get(`${this.host}/api/admin/compte/${id}/depotTransactions`)},
+      {type:"retrait",data: this.http.get(`${this.host}/api/admin/compte/${id}/retraitTransactions`)}
+    ]);
+  }
+
   getUserByUsername(username : number){
     return this.http.get(`${this.host}/api/user/${username}`);
   }

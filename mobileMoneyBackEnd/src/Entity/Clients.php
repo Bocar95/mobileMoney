@@ -34,13 +34,13 @@ class Clients
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getTransByCode","getClientByNci","getDepotTransByIdUser","getRetraitTransByIdUser"})
+     * @Groups({"getTransByCode","getClientByNci","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $nomComplet;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getTransByCode","getClientByNci"})
+     * @Groups({"getTransByCode","getClientByNci","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $telephone;
 

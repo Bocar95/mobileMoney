@@ -328,9 +328,9 @@ class TransactionsController extends AbstractController
     }
 
     /**
-     * @Route(path="/api/admin/compte/{id}/transactions", name="getTransByIdCompte", methods={"GET"})
+     * @Route(path="/api/admin/compte/{id}/depotTransactions", name="getDepotTransByIdCompte", methods={"GET"})
      */
-    public function getTransByIdCompte($id, SerializerInterface $serializer, ComptesRepository $compteRepo, TransactionsRepository $transRepo)
+    public function getDepotTransByIdCompte($id, SerializerInterface $serializer, ComptesRepository $compteRepo, TransactionsRepository $transRepo)
     {
       $compte = new Comptes();
 
@@ -340,12 +340,47 @@ class TransactionsController extends AbstractController
           "id" => $id
         ]);
 
+        if (!$compte){
+          return $this->json(
+            ["message" => "Désolé, mais ce compte n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
+        }
+
         $transDepot [] = $transRepo->findBy([
           "compteDepot" => $id
         ]);
 
-        $transRetrait [] = $transRepo->findBy([
-          "compteRetrait" => $id
+        // if($transDepot){
+        //   $transactions []= [
+        //     "depot"=>$transDepot
+        //   ];
+        // }
+
+        // if($transRetrait){
+        //   $transactions []= [
+        //     "retrait"=>$transRetrait
+        //   ];
+        // }
+
+        return $this->json($transDepot, 200, [], ["groups" => ["getDepotTransByIdCompte"]]);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
+    /**
+     * @Route(path="/api/admin/compte/{id}/retraitTransactions", name="getRetraitTransByIdCompte", methods={"GET"})
+     */
+    public function getRetraitTransByIdCompte($id, SerializerInterface $serializer, ComptesRepository $compteRepo, TransactionsRepository $transRepo)
+    {
+      $compte = new Comptes();
+
+      if ($this->isGranted("VIEW",$compte)) {
+
+        $compte = $compteRepo->findOneBy([
+          "id" => $id
         ]);
 
         if (!$compte){
@@ -355,19 +390,11 @@ class TransactionsController extends AbstractController
           );
         }
 
-        if($transDepot){
-          $transactions []= [
-            "depot"=>$transDepot
-          ];
-        }
+        $transRetrait [] = $transRepo->findBy([
+          "compteRetrait" => $id
+        ]);
 
-        if($transRetrait){
-          $transactions []= [
-            "retrait"=>$transRetrait
-          ];
-        }
-
-        return $this->json($transactions, 200, [], ["groups" => ["getTransByIdCompte"]]);
+        return $this->json($transRetrait, 200, [], ["groups" => ["getRetraitTransByIdCompte"]]);
       }
       else{
         return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);

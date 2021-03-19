@@ -48,7 +48,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"getUserByUsername"})
+     * @Groups({"getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $telephone;
 
@@ -62,19 +62,19 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername"})
+     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername"})
+     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getUserByUsername"})
+     * @Groups({"getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
      */
     private $email;
 

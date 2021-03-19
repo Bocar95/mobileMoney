@@ -27,7 +27,7 @@
       </ion-col>
     </ion-row>
     <!-- <ion-row *ngFor="let transElement of trans | orderBy:'dateDepot'"> -->
-    <ng-container *ngFor="let trans of tab2">
+    <ng-container *ngFor="let trans of allTrans">
       <ng-container *ngIf="trans['data'] | async as result">
         <ion-row  *ngFor="let element of result" style="font-size: 12px;">
           {{ element }}

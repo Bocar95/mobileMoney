@@ -10,7 +10,6 @@ import { UserService } from '../services/userService/user.service';
 })
 export class ListTransactionsComponent implements OnInit {
 
-  tab : {}[];
   tab2 : any;
   username : number;
 
@@ -25,7 +24,7 @@ export class ListTransactionsComponent implements OnInit {
     return this.router.navigate(['/acceuil']);
   }
 
-  getNewTrans(id){
+  getTrans(id){
     return this.transationService.fusion(id).subscribe({
       next: res=>{
         this.tab2 = res,
@@ -38,7 +37,7 @@ export class ListTransactionsComponent implements OnInit {
     return this.transationService.getUserByUsername(this.username).subscribe(
       res => {
         console.log(res),
-        this.getNewTrans(res["id"])
+        this.getTrans(res["id"])
       }
     );
   }
