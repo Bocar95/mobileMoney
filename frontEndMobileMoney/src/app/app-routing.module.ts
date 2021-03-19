@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AcceuilComponent } from './acceuil/acceuil.component';
 import { ConnexionPageComponent } from './connexion-page/connexion-page.component';
 import { DepotFormulaireComponent } from './depot-formulaire/depot-formulaire.component';
+import { FraisCalculatorComponent } from './frais-calculator/frais-calculator.component';
 import { ListTransactionsComponent } from './list-transactions/list-transactions.component';
 import { RefreshComponent } from './refresh/refresh.component';
 import { RetraitFormulaireComponent } from './retrait-formulaire/retrait-formulaire.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path : 'retrait', component: RetraitFormulaireComponent, canActivate: [AuthGuard] },
   { path : 'refresh', component: RefreshComponent, canActivate: [AuthGuard] },
   { path : 'myTransactions', component : ListTransactionsComponent, canActivate : [AuthGuard] },
-  { path : 'allTransactions', component : ListTransactionsComponent, canActivate : [AuthGuard] }
+  { path : 'allTransactions', component : ListTransactionsComponent, canActivate : [AuthGuard] },
+  { path : 'fraisCalculator', component : FraisCalculatorComponent, canActivate : [AuthGuard] }
 ];
 
 @NgModule({

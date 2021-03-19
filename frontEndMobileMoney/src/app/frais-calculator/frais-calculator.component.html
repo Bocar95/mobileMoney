@@ -1,0 +1,26 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-buttons slot="start">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-buttons>
+    <ion-img src="../assets/icon/logo.jpeg"></ion-img>
+  </ion-toolbar>  
+</ion-header>  
+     
+<ion-content class="padding" id="content">
+  <div id="container">
+    <form [formGroup]="calculatorForm" (ngSubmit)="showModal()" id="calculatorForm">
+      <ion-list>
+        <ion-item>
+          <ion-label  position="stacked">Type de transaction</ion-label>
+          <ion-input>Dépôt</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label  position="stacked">Montant</ion-label>
+          <ion-input  [formControl]="montantFormControl" placeholder="ex: 30000" required></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button type="submit" color="#FA4A0C">Calculer</ion-button>
+    </form>
+  </div>
+</ion-content>

@@ -27,11 +27,12 @@ export class CodeModalComponent implements OnInit {
   }
 
   async closeModal(){
+    this.router.navigate(['/depot']);
     await this.modalCtrl.dismiss();
   }
 
   sendSms() {
-   return  this.closeModal(), this.router.navigate(['/depot']);
+   return  this.closeModal(), this.router.navigate(['/acceuil']);
   }
 
 }

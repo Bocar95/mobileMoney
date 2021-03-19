@@ -37,6 +37,7 @@ export class RetraitModalComponent implements OnInit {
   }
 
   async closeModal(){
+    this.router.navigate(['/retrait']);
     await this.modalCtrl.dismiss();
   }
 
@@ -45,7 +46,7 @@ export class RetraitModalComponent implements OnInit {
       res => {
         console.log(res)
       }
-    ), this.closeModal(), this.router.navigate(['/retrait']);
+    ), this.closeModal(),this.router.navigate(['/acceuil']);
   }
 
 }
