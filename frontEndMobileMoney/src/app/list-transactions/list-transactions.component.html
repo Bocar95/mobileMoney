@@ -7,7 +7,7 @@
   </ion-toolbar>  
 </ion-header>  
      
-<ion-content class="padding" scroll=false>
+<ion-content class="padding">
   <div id="container">
     <ion-row style="font-size: 12px; font-weight: bold;text-align: center;">
       <ion-col>
@@ -30,7 +30,6 @@
     <ng-container *ngFor="let trans of tab2">
       <ng-container *ngIf="trans['data'] | async as result">
         <ion-row  *ngFor="let element of result" style="font-size: 12px;">
-          {{ element }}
           <ion-grid>
             <ion-row>
               <ion-col *ngIf="trans.type == 'depot'">

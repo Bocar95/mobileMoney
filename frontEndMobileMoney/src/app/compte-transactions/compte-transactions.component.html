@@ -29,34 +29,35 @@
     <!-- <ion-row *ngFor="let transElement of trans | orderBy:'dateDepot'"> -->
     <ng-container *ngFor="let trans of allTrans">
       <ng-container *ngIf="trans['data'] | async as result">
-        <ion-row  *ngFor="let element of result" style="font-size: 12px;">
-          {{ element }}
-          <ion-grid>
-            <ion-row>
-              <ion-col *ngIf="trans.type == 'depot'">
-                {{ element.dateDepot | date:'shortDate'}}
-              </ion-col>
-              <ion-col *ngIf="trans.type == 'retrait'">
-                {{ element.dateRetrait | date:'shortDate'}}
-              </ion-col>
-              <ion-col *ngIf="trans.type == 'depot'">
-                {{ element["clientDepot"].nomComplet }}
-              </ion-col>
-              <ion-col *ngIf="trans.type == 'retrait'">
-                {{ element["clientRetrait"].nomComplet }}
-              </ion-col>
-              <ion-col>
-                {{ trans.type }}
-              </ion-col>
-              <ion-col>
-                {{ element.montant }}
-              </ion-col>
-              <ion-col>
-                {{ element.frais }}
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-row>
+        <ng-container *ngFor="let element of result">
+          <ion-row  *ngFor="let elm of element" style="font-size: 12px;">
+            <ion-grid>
+              <ion-row>
+                <ion-col *ngIf="trans.type == 'depot'">
+                  {{ elm.dateDepot | date:'shortDate'}}
+                </ion-col>
+                <ion-col *ngIf="trans.type == 'retrait'">
+                  {{ elm.dateRetrait | date:'shortDate'}}
+                </ion-col>
+                <ion-col *ngIf="trans.type == 'depot'">
+                  {{ elm["clientDepot"].nomComplet }}
+                </ion-col>
+                <ion-col *ngIf="trans.type == 'retrait'">
+                  {{ elm["clientRetrait"].nomComplet }}
+                </ion-col>
+                <ion-col>
+                  {{ trans.type }}
+                </ion-col>
+                <ion-col>
+                  {{ elm.montant }}
+                </ion-col>
+                <ion-col>
+                  {{ elm.frais }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-row>
+        </ng-container>
       </ng-container>
     </ng-container>
   </div>
