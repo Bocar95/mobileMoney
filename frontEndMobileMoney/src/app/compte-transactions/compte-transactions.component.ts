@@ -17,12 +17,19 @@ export class CompteTransactionsComponent implements OnInit {
   constructor(private userService : UserService, private transactionService : TransactionService, private router : Router) { }
 
   ngOnInit() {
-    this.getCompteId();
+    this.getUser();
   }
 
-  getCompteId(){
-    this.tokenElement();
-    return this.userService.getCompteByUserUsername(this.username).subscribe(
+  getUser(){
+    this.userService.getUserByUsername().subscribe(
+      res => {
+        this.getCompteByUsername(res["telephone"])
+      }
+    );
+  }
+
+  getCompteByUsername(username){
+    this.userService.getCompteByUserUsername(username).subscribe(
       (data : any) => {
         this.compteId = data["id"],
         this.getTransByCompteId(this.compteId)
@@ -43,17 +50,18 @@ export class CompteTransactionsComponent implements OnInit {
     return this.router.navigate(['/acceuil']);
   }
 
-  tokenElement() {
-    let token = localStorage.getItem('token');
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
+  // the tokenElement method will not gonna work for ios cause there, i use the local Storage to get the token.. ;-)
+  // tokenElement() {
+  //   let token = localStorage.getItem('token');
+  //   var base64Url = token.split('.')[1];
+  //   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  //   var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+  //       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  //   }).join(''));
 
-    var element = JSON.parse(jsonPayload);
-    this.username = element["username"];
-    return element;
-  }
+  //   var element = JSON.parse(jsonPayload);
+  //   this.username = element["username"];
+  //   return element;
+  // }
 
 }

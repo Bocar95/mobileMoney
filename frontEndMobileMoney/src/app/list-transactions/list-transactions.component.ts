@@ -16,12 +16,15 @@ export class ListTransactionsComponent implements OnInit {
   constructor(private router : Router, private transationService : TransactionService, private userService : UserService) { }
 
   ngOnInit() {
-    this.tokenElement();
     this.getUser();
   }
 
-  getBackHome(){
-    return this.router.navigate(['/acceuil']);
+  getUser(){
+    this.userService.getUserByUsername().subscribe(
+      res => {
+        this.getTrans(res["id"])
+      }
+    );
   }
 
   getTrans(id){
@@ -33,26 +36,8 @@ export class ListTransactionsComponent implements OnInit {
     });
   }
 
-  getUser(){
-    return this.transationService.getUserByUsername(this.username).subscribe(
-      res => {
-        console.log(res),
-        this.getTrans(res["id"])
-      }
-    );
-  }
-
-  tokenElement() {
-    let token = localStorage.getItem('token');
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    var element = JSON.parse(jsonPayload);
-    this.username = element["username"];
-    return element;
+  getBackHome(){
+    return this.router.navigate(['/acceuil']);
   }
   
 }

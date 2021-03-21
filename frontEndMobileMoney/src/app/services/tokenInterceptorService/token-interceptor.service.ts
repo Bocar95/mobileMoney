@@ -13,8 +13,6 @@ const TOKEN_KEY = 'auth-token';
 })
 export class TokenInterceptorService implements HttpInterceptor {
 
-  theToken;
-
   protected debug = true;
 
   constructor(private storage : Storage, private alertController: AlertController, private authService : AuthService) { }

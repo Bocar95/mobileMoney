@@ -24,7 +24,7 @@ export class AcceuilComponent implements OnInit {
         this.getCompte(res["telephone"]),
         this.Admin()
       }
-    )
+    );
   }
 
   getCompte(username : number){

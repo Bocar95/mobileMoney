@@ -9,9 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
-  userUrl = "http://127.0.0.1:8000/api/user";
   private host = environment.host;
-
 
   private  _refreshNeeded$ = new Subject<void>() ;
 
@@ -22,7 +20,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getCompteByUserUsername(username){
-    return this.http.get(`${this.userUrl}/${username}/compte`);
+    return this.http.get(`${this.host}/api/user/${username}/compte`);
   }
 
   getUserById(id : number){

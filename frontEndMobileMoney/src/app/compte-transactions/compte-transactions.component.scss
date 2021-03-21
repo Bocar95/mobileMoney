@@ -24,6 +24,8 @@
     display: block;
     height: 60vh;
     margin-top: 3em;
+    overflow : scroll;
+    overflow-x: hidden;
   }
   
   #container strong {
@@ -77,14 +79,5 @@
     margin: 0px auto;
     border-radius: 6px;
     margin-top: 6em;
-  }
-
-  div[scrolly=true] {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  div[scrolly=true] {
-    overflow-y: auto;
   }
   

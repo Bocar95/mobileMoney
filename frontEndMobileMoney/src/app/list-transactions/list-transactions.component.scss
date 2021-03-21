@@ -24,6 +24,8 @@
     display: block;
     height: 60vh;
     margin-top: 3em;
+    overflow : scroll;
+    overflow-x: hidden;
   }
   
   #container strong {

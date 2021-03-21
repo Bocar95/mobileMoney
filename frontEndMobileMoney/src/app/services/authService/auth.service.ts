@@ -1,18 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private loginCheckUrl = "http://127.0.0.1:8000/api/login_check";
+  private host = environment.host;
 
   constructor(private http : HttpClient, private storage: Storage) { }
 
   loginUser(user){
-    return this.http.post<any>(this.loginCheckUrl, user);
+    return this.http.post<any>(`${this.host}/api/login_check`, user);
   }
 
   loggedIn(){
