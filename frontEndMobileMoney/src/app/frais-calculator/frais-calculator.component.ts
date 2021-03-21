@@ -15,7 +15,8 @@ export class FraisCalculatorComponent implements OnInit {
   calculatorForm : FormGroup;
   montantFormControl = new FormControl('', [Validators.required, Validators.pattern(/(^[0-9])/)]);
 
-  frais : number;
+  frais : number = 0;
+  montant : number;
 
   constructor(private router : Router, private formBuilder: FormBuilder, private transactionService : TransactionService, private modalCtrl : ModalController) { }
 
@@ -25,19 +26,17 @@ export class FraisCalculatorComponent implements OnInit {
     });
   }
 
-  getBackHome(){
-    return this.router.navigate(['/acceuil']);
+  calculator(){
+    return this.transactionService.getFrais(+this.montantFormControl.value).subscribe(
+      (fraisData : number) => {
+        this.frais = fraisData
+        // this.montant = this.data["montant"],
+      }
+    );
   }
 
-  async showModal(){
-      const modal = await this.modalCtrl.create({
-        component : CalculatorModalComponent,
-        componentProps : {
-          data : [this.calculatorForm.value]
-        },
-        cssClass : 'calculatorModal-component-css'
-      })
-      await modal.present();
+  getBackHome(){
+    return this.router.navigate(['/acceuil']);
   }
 
 }

@@ -417,4 +417,15 @@ class TransactionsController extends AbstractController
       }
     }
 
+    /**
+     * @Route(path="/api/user/totalToGive/{frais}/{montant}", name="getTotal", methods={"GET"})
+     */
+    public function getTotal($frais,$montant, TransactionsRepository $transRepo)
+    {
+      $service = new transactionService($transRepo);
+      $fraisEnvoi = $service->fraisEnvoi($montant);
+      $total = intval($fraisEnvoi) + intval($montant);
+      return $this->json($total);
+    }
+
 }

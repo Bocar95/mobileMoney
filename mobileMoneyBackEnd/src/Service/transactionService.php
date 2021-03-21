@@ -19,52 +19,52 @@ class transactionService{
         if ($montant > 5000 && $montant <= 10000){
             $fraisEnvoi = 850;
         }else
-        if ($montant < 10000 && $montant <= 15000){
+        if ($montant > 10000 && $montant <= 15000){
             $fraisEnvoi = 1270;
         }else
-        if ($montant < 15000 && $montant <= 20000){
+        if ($montant > 15000 && $montant <= 20000){
             $fraisEnvoi = 1695;
         }else
-        if ($montant < 20000 && $montant <= 50000){
+        if ($montant > 20000 && $montant <= 50000){
             $fraisEnvoi = 2500;
         }else
-        if ($montant < 50000 && $montant <= 60000){
+        if ($montant > 50000 && $montant <= 60000){
             $fraisEnvoi = 3000;
         }else
-        if ($montant < 60000 && $montant <= 75000){
+        if ($montant > 60000 && $montant <= 75000){
             $fraisEnvoi = 4000;
         }else
         if ($montant < 75000 && $montant <= 120000){
             $fraisEnvoi = 5000;
         }else
-        if ($montant < 120000 && $montant <= 150000){
+        if ($montant > 120000 && $montant <= 150000){
             $fraisEnvoi = 6000;
         }else
-        if ($montant < 150000 && $montant <= 200000){
+        if ($montant > 150000 && $montant <= 200000){
             $fraisEnvoi = 7000;
         }else
-        if ($montant < 200000 && $montant <= 250000){
+        if ($montant > 200000 && $montant <= 250000){
             $fraisEnvoi = 8000;
         }else
-        if ($montant < 250000 && $montant <= 300000){
+        if ($montant > 250000 && $montant <= 300000){
             $fraisEnvoi = 9000;
         }else
-        if ($montant < 300000 && $montant <= 400000){
+        if ($montant > 300000 && $montant <= 400000){
             $fraisEnvoi = 12000;
         }else
-        if ($montant < 400000 && $montant <= 750000){
+        if ($montant > 400000 && $montant <= 750000){
             $fraisEnvoi = 15000;
         }else
-        if ($montant < 75000 && $montant <= 900000){
+        if ($montant > 75000 && $montant <= 900000){
             $fraisEnvoi = 22000;
         }else
-        if ($montant < 900000 && $montant <= 1000000){
+        if ($montant > 900000 && $montant <= 1000000){
             $fraisEnvoi = 25000;
         }else
-        if ($montant < 1000000 && $montant <= 1125000){
+        if ($montant > 1000000 && $montant <= 1125000){
             $fraisEnvoi = 27000;
         }else
-        if ($montant < 1125000 && $montant < 2000000){
+        if ($montant > 1125000 && $montant < 2000000){
             $fraisEnvoi = 30000;
         }else
         if ($montant >= 2000000){

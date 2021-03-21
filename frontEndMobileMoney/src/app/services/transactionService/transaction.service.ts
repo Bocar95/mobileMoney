@@ -1,7 +1,7 @@
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Transaction } from 'src/app/models/transaction';
 import { NgForm } from '@angular/forms';
 
@@ -46,6 +46,10 @@ export class TransactionService {
 
   getUserByUsername(username : number){
     return this.http.get(`${this.host}/api/user/${username}`);
+  }
+
+  getTotal (frais:number, montant: number){
+    return this.http.get(`${this.host}/api/user/totalToGive/${frais}/${montant}`);
   }
   
 }

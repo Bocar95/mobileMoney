@@ -22,32 +22,32 @@
   <div id="container">
     <form [formGroup]="depotForm">
       <div *ngIf="disabledEmetteurInputs == false">
-      <ion-list>
-        <ion-item>
-          <ion-label  position="stacked">N° CNI</ion-label>
-          <ion-input  [formControl]="cniEmetteurFormControl" (ionChange)="getClient()" placeholder="numéro de carte d'identité" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label  position="stacked">Nom Complet</ion-label>
-          <ion-input  [formControl]="nomCompletEmetteurFormControl" [value]="clientEmetteur.nomComplet" placeholder="ex: Prénom et NOM" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label  position="stacked">Téléphone</ion-label>
-          <ion-input  [formControl]="telephoneEmetteurFormControl" [value]="clientEmetteur.telephone" placeholder="numéro de téléphone" required></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label  position="stacked">Montant</ion-label>
-          <ion-input  [formControl]="montantFormControl" (ionChange)="fraisCalculator()" (ionChange)="totalToGive()"  placeholder="montant" required></ion-input>
-        </ion-item>
-        <ion-item style="position:relative; display:block; float: right; width: 45%;">
-          <ion-label  position="stacked">Frais</ion-label>
-          <ion-input  [value]="frais" readonly placeholder="frais"></ion-input>
-        </ion-item>
-        <ion-item style="position:relative; display: block; float: left; width: 100%;">
-          <ion-label  position="stacked">Total</ion-label>
-          <ion-input  [value]="total" readonly placeholder="total"></ion-input>
-        </ion-item>
-      </ion-list>
+        <ion-list>
+          <ion-item>
+            <ion-label  position="stacked">N° CNI</ion-label>
+            <ion-input  [formControl]="cniEmetteurFormControl" (ionChange)="getClient()" placeholder="numéro de carte d'identité" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label  position="stacked">Nom Complet</ion-label>
+            <ion-input  [formControl]="nomCompletEmetteurFormControl" [value]="clientEmetteur.nomComplet" placeholder="ex: Prénom et NOM" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label  position="stacked">Téléphone</ion-label>
+            <ion-input  [formControl]="telephoneEmetteurFormControl" [value]="clientEmetteur.telephone" placeholder="numéro de téléphone" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label  position="stacked">Montant</ion-label>
+            <ion-input  [formControl]="montantFormControl" (ionChange)="fraisCalculator()" (ionChange)="totalToGive()"  placeholder="montant" required></ion-input>
+          </ion-item>
+          <ion-item style="position:relative; display:block; float: right; width: 45%;">
+            <ion-label  position="stacked">Frais</ion-label>
+            <ion-input  [value]="frais" readonly placeholder="frais"></ion-input>
+          </ion-item>
+          <ion-item style="position:relative; display: block; float: left; width: 100%;">
+            <ion-label  position="stacked">Total</ion-label>
+            <ion-input  [value]="total" readonly placeholder="total"></ion-input>
+          </ion-item>
+        </ion-list>
       </div>
       
       <div *ngIf="disabledBeneficiaireInputs == false">

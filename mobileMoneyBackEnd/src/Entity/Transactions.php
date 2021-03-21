@@ -43,6 +43,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *    },
  *    "getFraisByMontant"={
  *          "path"="/user/frais/{montant}"
+ *    },
+ *    "getTotal"={
+ *          "path"="/user/totalToGive/{frais}/{montant}"
  *    }
  *  }
  * )

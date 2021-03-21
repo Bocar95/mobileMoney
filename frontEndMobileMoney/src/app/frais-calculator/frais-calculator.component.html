@@ -1,15 +1,15 @@
 <ion-header>  
   <ion-toolbar>  
     <ion-buttons slot="start">
-      <ion-icon name="home-outline"></ion-icon>
+      <ion-icon name="home-outline" (click)="getBackHome()"></ion-icon>
     </ion-buttons>
     <ion-img src="../assets/icon/logo.jpeg"></ion-img>
   </ion-toolbar>  
-</ion-header>  
+</ion-header>
      
 <ion-content class="padding" id="content">
   <div id="container">
-    <form [formGroup]="calculatorForm" (ngSubmit)="showModal()" id="calculatorForm">
+    <form [formGroup]="calculatorForm" (ngSubmit)="calculator()" id="calculatorForm">
       <ion-list>
         <ion-item>
           <ion-label  position="stacked">Type de transaction</ion-label>
@@ -17,10 +17,14 @@
         </ion-item>
         <ion-item>
           <ion-label  position="stacked">Montant</ion-label>
-          <ion-input  [formControl]="montantFormControl" placeholder="ex: 30000" required></ion-input>
+          <ion-input  [formControl]="montantFormControl" (ionChange)="calculator()" placeholder="ex: 30000" required></ion-input>
+        </ion-item>
+        <ion-item style="position:relative; display:block; float: right; width: 45%;">
+          <ion-label  position="stacked">Frais</ion-label>
+          <ion-input  [value]="frais" readonly></ion-input>
         </ion-item>
       </ion-list>
-      <ion-button type="submit" color="#FA4A0C">Calculer</ion-button>
+      <!-- <ion-button type="submit" color="#FA4A0C">Calculer</ion-button> -->
     </form>
   </div>
 </ion-content>

@@ -72,15 +72,20 @@ export class DepotFormulaireComponent implements OnInit {
   fraisCalculator (){
     var montant = +this.montantFormControl.value;
     return this.transactionService.getFrais(montant).subscribe(
-        (data : number) => {
-          this.frais = data,
-          console.log(data,montant)
-        }
-      );
+      (data : number) => {
+        this.frais = data,
+        this.totalToGive(+this.frais, montant),
+        console.log(data,montant)
+      }
+    );
   }
 
-  totalToGive(){
-    return this.total = +this.frais + +this.montantFormControl.value;
+  totalToGive(frais: number, montant: number){
+    return this.transactionService.getTotal(frais, montant).subscribe(
+      (data : number) => {
+        this.total = data
+      }
+    );
   }
 
   nextPage(){
