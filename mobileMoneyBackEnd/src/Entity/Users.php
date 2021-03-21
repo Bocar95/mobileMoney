@@ -30,7 +30,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *    },
  *    "getUserByUsername"={
  *          "method"="get",
- *          "path"="/user/{username}",
+ *          "path"="/user/username",
  *          "normalization_context"={"groups"={"getUserByUsername"}}
  *    }
  *  }
@@ -52,6 +52,9 @@ class Users implements UserInterface
      */
     private $telephone;
 
+    /**
+     * @Groups({"getUserByUsername"})
+     */
     private $roles = [];
 
     /**

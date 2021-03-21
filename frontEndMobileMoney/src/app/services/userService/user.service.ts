@@ -29,7 +29,7 @@ export class UserService {
     return this.http.get(`${this.host}/api/user/${id}`);
   }
 
-  getUserByUsername(username : number){
-    return this.http.get(`${this.host}/api/user/${username}`);
+  getUserByUsername(){
+    return this.http.get(`${this.host}/api/user/username`);
   }
 }
