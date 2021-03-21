@@ -24,6 +24,7 @@ class Roles
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getUserById"})
      */
     private $libelle;
 

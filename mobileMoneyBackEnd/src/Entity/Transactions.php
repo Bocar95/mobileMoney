@@ -26,6 +26,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *          "methods"="get",
  *          "path"="/user/{id}/depotTransactions"
  *    },
+ *    "getRetraitTransByIdUser"={
+ *          "methods"="get",
+ *          "path"="/user/{id}/retraitTransactions"
+ *    },
  *    "getDepotTransByIdCompte"={
  *          "methods"="get",
  *          "path"="/admin/compte/{id}/depotTransactions"

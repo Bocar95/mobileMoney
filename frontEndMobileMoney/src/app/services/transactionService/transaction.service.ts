@@ -47,4 +47,5 @@ export class TransactionService {
   getUserByUsername(username : number){
     return this.http.get(`${this.host}/api/user/${username}`);
   }
+  
 }

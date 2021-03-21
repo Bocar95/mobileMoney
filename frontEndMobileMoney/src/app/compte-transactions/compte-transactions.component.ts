@@ -34,7 +34,7 @@ export class CompteTransactionsComponent implements OnInit {
     return this.transactionService.getTransactionsByCompte(id).subscribe({
       next: res=>{
         this.allTrans = res,
-        console.log(this.allTrans[0]["data"]);
+        console.log(this.allTrans[0]["data"])
       }
     });
   }
