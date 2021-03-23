@@ -12,7 +12,9 @@ export class CompteTransactionsComponent implements OnInit {
 
   allTrans : any;
   compteId : number;
-  username:number;
+  username : number;
+  users = [];
+
 
   constructor(private userService : UserService, private transactionService : TransactionService, private router : Router) { }
 
@@ -32,7 +34,8 @@ export class CompteTransactionsComponent implements OnInit {
     this.userService.getCompteByUserUsername(username).subscribe(
       (data : any) => {
         this.compteId = data["id"],
-        this.getTransByCompteId(this.compteId)
+        this.getTransByCompteId(this.compteId),
+        this.getUsersOfCompteById(this.compteId)
       }
     );
   }
@@ -44,6 +47,19 @@ export class CompteTransactionsComponent implements OnInit {
         console.log(this.allTrans[0]["data"])
       }
     });
+  }
+
+  getUsersOfCompteById(id){
+    return this.userService.getUsersByCompteId(id).subscribe(
+      (res:any) => {
+        this.users = res["agences"]["users"],
+        console.log(this.users)
+      }
+    )
+  }
+
+  clicked(){
+    console.log("someone just called me bruh??");
   }
 
   getBackHome(){

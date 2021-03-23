@@ -51,6 +51,7 @@ class Agences
 
     /**
      * @ORM\OneToMany(targetEntity=Users::class, mappedBy="agences")
+     * @Groups({"getUsersByCompteId"})
      */
     private $users;
 

@@ -42,13 +42,13 @@ class Users implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"getUserByUsername"})
+     * @Groups({"getUserByUsername","getUsersByCompteId"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
+     * @Groups({"getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte","getUsersByCompteId"})
      */
     private $telephone;
 
@@ -65,19 +65,19 @@ class Users implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
+     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte","getUsersByCompteId"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
+     * @Groups({"getDepotTransByIdUser","getRetraitTransByIdUser","getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte","getUsersByCompteId"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
+     * @Groups({"getUserByUsername","getDepotTransByIdCompte","getRetraitTransByIdCompte","getUsersByCompteId"})
      */
     private $email;
 

@@ -47,7 +47,7 @@ export class ConnexionPageComponent implements OnInit {
           const decodedToken = this.helper.decodeToken(res.token);
           this.storage.set('token', res.token),
           this.storage.set('id', decodedToken.id),
-          localStorage.setItem('token', res.token)
+          // localStorage.setItem('token', res.token)
           this.router.navigateByUrl('/acceuil')
         },
         error => {

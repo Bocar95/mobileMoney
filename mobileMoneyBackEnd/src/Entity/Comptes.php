@@ -10,7 +10,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ * itemOperations={
+ *    "getUsers"={
+ *          "method"="get",
+ *          "path"="/user/compte/{id}/users",
+ *          "normalization_context"={"groups"={"getUsersByCompteId"}}
+ *    },
+ *  }
+ * )
  * @ORM\Entity(repositoryClass=ComptesRepository::class)
  */
 class Comptes
@@ -63,6 +71,7 @@ class Comptes
 
     /**
      * @ORM\OneToOne(targetEntity=Agences::class, mappedBy="compte", cascade={"persist", "remove"})
+     * @Groups({"getUsersByCompteId"})
      */
     private $agences;
 

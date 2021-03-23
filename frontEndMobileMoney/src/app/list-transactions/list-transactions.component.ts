@@ -31,7 +31,7 @@ export class ListTransactionsComponent implements OnInit {
     return this.transationService.fusion(id).subscribe({
       next: res=>{
         this.tab2 = res,
-        console.log(this.tab2[0]["data"]);
+        console.log(this.tab2[0]["data"])
       }
     });
   }

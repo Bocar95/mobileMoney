@@ -17,31 +17,30 @@
     margin: 0 auto;
   }
 
-  #container {
+  // #userItem{
+  //   position: relative;
+  //   float :left;
+  //   padding: 0px;
+  //   margin: 0px;
+  //   font-size: 8px;
+  //   font-weight: bold;
+  //   text-align: center;
+  // }
+
+  #container2 {
     text-align: center;
     left: 1rem;
     right: 1rem;
     display: block;
     height: 60vh;
-    margin-top: 3em;
+    margin-top: 2em;
     overflow : scroll;
     overflow-x: hidden;
   }
   
-  #container strong {
+  #container2 strong {
     font-size: 20px;
     line-height: 26px;
-  }
-  
-  #container p {
-    font-size: 16px;
-    line-height: 22px;
-    color: #8c8c8c;
-    margin: 0;
-  }
-  
-  #container a {
-    text-decoration: none;
   }
   
   #col {
@@ -63,13 +62,6 @@
 
   ion-tabs {
     display: block;
-  }
-  
-  ion-item {
-    display: block;
-    height: 4em;
-    padding-top: 0px;
-    font-size: 13px;
   }
 
   ion-button {

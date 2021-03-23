@@ -30,4 +30,8 @@ export class UserService {
   getUserByUsername(){
     return this.http.get(`${this.host}/api/user/username`);
   }
+
+  getUsersByCompteId(id){
+    return this.http.get(`${this.host}/api/user/compte/${id}/users`);
+  }
 }
