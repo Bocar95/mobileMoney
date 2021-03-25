@@ -428,4 +428,77 @@ class TransactionsController extends AbstractController
       return $this->json($total);
     }
 
+
+    /**
+     * @Route(path="/api/admin/compte/{id}/depotComission", name="getDepotComission", methods={"GET"})
+     */
+    public function getDepotComission($id, SerializerInterface $serializer, ComptesRepository $compteRepo, TransactionsRepository $transRepo)
+    {
+      $compte = new Comptes();
+      $service = new transactionService($transRepo);
+
+      if ($this->isGranted("VIEW",$compte)) {
+
+        $compte = $compteRepo->findOneBy([
+          "id" => $id
+        ]);
+
+        if (!$compte){
+          return $this->json(
+            ["message" => "Désolé, mais ce compte n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
+        }
+
+        $transDepot = $transRepo->findBy([
+          "compteDepot" => $id
+        ]);
+
+        foreach ($transDepot as $value) {
+          $depotComission []= ["montant"=>$service->commissionOperateurDepot($value->getMontant()), "dateDepot"=>$value->getDateDepot()];
+        }
+
+        return $this->json($depotComission);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
+    /**
+     * @Route(path="/api/admin/compte/{id}/retraitComission", name="getRetraitComission", methods={"GET"})
+     */
+    public function getRetraitComission($id, SerializerInterface $serializer, ComptesRepository $compteRepo, TransactionsRepository $transRepo)
+    {
+      $compte = new Comptes();
+      $service = new transactionService($transRepo);
+
+      if ($this->isGranted("VIEW",$compte)) {
+
+        $compte = $compteRepo->findOneBy([
+          "id" => $id
+        ]);
+
+        if (!$compte){
+          return $this->json(
+            ["message" => "Désolé, mais ce compte n'existe pas."],
+            Response::HTTP_FORBIDDEN
+          );
+        }
+
+        $transRetrait = $transRepo->findBy([
+          "compteRetrait" => $id
+        ]);
+
+        foreach ($transRetrait as $value) {
+          $retraitComission []= ["montant"=>$service->commissionOperateurDepot($value->getMontant()), "dateRetrait"=>$value->getDateDepot()];
+        }
+
+        return $this->json($retraitComission);
+      }
+      else{
+        return $this->json(["message" => "Vous n'avez pas ce privilége."], Response::HTTP_FORBIDDEN);
+      }
+    }
+
 }

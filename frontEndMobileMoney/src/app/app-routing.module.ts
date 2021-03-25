@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AcceuilComponent } from './acceuil/acceuil.component';
+import { CommissionsComponent } from './commissions/commissions.component';
 import { CompteTransactionsComponent } from './compte-transactions/compte-transactions.component';
 import { ConnexionPageComponent } from './connexion-page/connexion-page.component';
 import { DepotFormulaireComponent } from './depot-formulaire/depot-formulaire.component';
@@ -20,7 +21,9 @@ const routes: Routes = [
   { path : 'refresh', component: RefreshComponent, canActivate: [AuthGuard] },
   { path : 'myTransactions', component : ListTransactionsComponent, canActivate : [AuthGuard] },
   { path : 'compteTransactions', component : CompteTransactionsComponent, canActivate : [AuthGuard] },
-  { path : 'fraisCalculator', component : FraisCalculatorComponent, canActivate : [AuthGuard] }
+  { path : 'fraisCalculator', component : FraisCalculatorComponent, canActivate : [AuthGuard] },
+  { path : 'commissions', component : CommissionsComponent, canActivate : [AuthGuard] }
+
 ];
 
 @NgModule({

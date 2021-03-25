@@ -18,6 +18,7 @@ import { RefreshComponent } from '../refresh/refresh.component';
 import { FraisCalculatorComponent } from '../frais-calculator/frais-calculator.component';
 import { CalculatorModalComponent } from '../calculator-modal/calculator-modal.component';
 import { CompteTransactionsComponent } from '../compte-transactions/compte-transactions.component';
+import { CommissionsComponent } from '../commissions/commissions.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { CompteTransactionsComponent } from '../compte-transactions/compte-trans
     RefreshComponent,
     FraisCalculatorComponent,
     CalculatorModalComponent,
-    CompteTransactionsComponent
+    CompteTransactionsComponent,
+    CommissionsComponent
   ]
 })
 export class HomePageModule {}

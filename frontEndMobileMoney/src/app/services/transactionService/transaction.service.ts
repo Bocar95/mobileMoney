@@ -44,6 +44,13 @@ export class TransactionService {
     ]);
   }
 
+  getCommissionByCompte(id){
+    return of([
+      {type:"depot",data: this.http.get(`${this.host}/api/admin/compte/${id}/depotComission`)},
+      {type:"retrait",data: this.http.get(`${this.host}/api/admin/compte/${id}/retraitComission`)}
+    ]);
+  }
+
   getUserByUsername(username : number){
     return this.http.get(`${this.host}/api/user/${username}`);
   }

@@ -1,0 +1,55 @@
+<ion-header>  
+  <ion-toolbar>  
+    <ion-buttons slot="start" (click)="getBackHome()">
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-buttons>
+    <ion-img src="../assets/icon/logo.jpeg"></ion-img>
+  </ion-toolbar>  
+</ion-header>  
+     
+<ion-content class="padding" scroll=false>
+
+  <div id="container2">
+    <ion-row style="font-size: 12px; font-weight: bold;text-align: center;">
+      <ion-col>
+        Date
+      </ion-col>
+      <ion-col>
+        Type
+      </ion-col>
+      <ion-col>
+        Commission
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row *ngFor="let commissionElement of commission | orderBy:'dateDepot'"> -->
+    <ng-container *ngFor="let commission of commissions">
+      <ng-container *ngIf="commission['data'] | async as result">
+        <ng-container *ngFor="let element of result">
+          <ion-row  style="font-size: 12px;">
+            <ion-grid>
+              <ion-row>
+                <ion-col *ngIf="commission.type == 'depot'">
+                  {{ element.dateDepot | date:'shortDate'}}
+                </ion-col>
+                <ion-col *ngIf="commission.type == 'retrait'">
+                  {{ element.dateRetrait | date:'shortDate'}}
+                </ion-col>
+                <ion-col>
+                  {{ commission.type }}
+                </ion-col>
+                <ion-col>
+                  {{ element.montant }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-row>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+  
+  <ion-footer>
+  </ion-footer>
+
+</ion-content>
+

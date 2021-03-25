@@ -46,6 +46,16 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *    },
  *    "getTotal"={
  *          "path"="/user/totalToGive/{frais}/{montant}"
+ *    },
+ *    "getDepotComission"={
+ *          "methods"="get",
+ *          "path"="/admin/compte/{id}/depotComission",
+ *          "normalization_context"={"groups"={"getDepotComission"}}
+ *    },
+ *    "getRetraitComission"={
+ *          "methods"="get",
+ *          "path"="/admin/compte/{id}/retraitComission",
+ *          "normalization_context"={"groups"={"getRetraitComission"}}
  *    }
  *  }
  * )
@@ -63,19 +73,19 @@ class Transactions
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte","getDepotComission","getRetraitComission"})
      */
     private $montant;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte","getDepotComission"})
      */
     private $dateDepot;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte"})
+     * @Groups({"getTransByCode","getDepotTransByIdUser","getRetraitTransByIdUser","getDepotTransByIdCompte","getRetraitTransByIdCompte","getRetraitComission"})
      */
     private $dateRetrait;
 
