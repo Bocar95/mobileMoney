@@ -13,7 +13,7 @@ class Role extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        $tab = ['ADMIN_SYSTEME', 'CAISSIER', 'ADMIN_AGENCE'];
+        $tab = ['ADMIN_SYSTEME', 'CAISSIER', 'ADMIN_AGENCE', 'USER_AGENCE'];
 
         for ($i=0; $i<count($tab); $i++){
 
@@ -31,6 +31,9 @@ class Role extends Fixture
             }  
             elseif ($tab[$i]=="ADMIN_AGENCE") {
                 $this->setReference("ADMIN_AGENCE",$roles);
+            }  
+            elseif ($tab[$i]=="USER_AGENCE") {
+                $this->setReference("USER_AGENCE",$roles);
             }
         }
     }

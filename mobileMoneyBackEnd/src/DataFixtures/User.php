@@ -20,29 +20,43 @@ class User extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        $tabRoles = ['ADMIN_SYSTEME', 'CAISSIER', 'ADMIN_AGENCE'];
+        $tabRoles = ['ADMIN_SYSTEME', 'CAISSIER', 'ADMIN_AGENCE', 'USER_AGENCE', 'USER_AGENCE'];
 
         $tabUser = [
             [
                 "email"=>"adminSysteme@gmail.com",
                 "password"=>"adminSysteme",
-                "telephone"=>"000000000",
+                "telephone"=>"770000000",
                 "prenom"=>"Birane",
                 "nom"=>"Wane"
             ],
             [
                 "email"=>"caissier@gmail.com",
                 "password"=>"caissier",
-                "telephone"=>"111111111",
+                "telephone"=>"771111111",
                 "prenom"=>"dump",
                 "nom"=>"die"
             ],
             [
-                "email"=>"adminAgence@gmail.com",
+                "email"=>"adminAgence1@gmail.com",
                 "password"=>"adminAgence",
-                "telephone"=>"222222222",
+                "telephone"=>"772222222",
                 "prenom"=>"json",
                 "nom"=>"token"
+            ],
+            [
+                "email"=>"adminAgence2@gmail.com",
+                "password"=>"adminAgence",
+                "telephone"=>"773333333",
+                "prenom"=>"jModou",
+                "nom"=>"Ndir"
+            ],
+            [
+                "email"=>"userAgence1@gmail.com",
+                "password"=>"userAgence",
+                "telephone"=>"772221111",
+                "prenom"=>"Pape",
+                "nom"=>"Lo"
             ]
         ];
 
@@ -61,6 +75,13 @@ class User extends Fixture
 
             $manager->persist($user);
             $manager->flush();
+
+            if ($tabUser[$i]["telephone"]=="772222222") {
+                $this->setReference("772222222",$user);
+            }
+            elseif ($tabUser[$i]["telephone"]=="773333333") {
+                $this->setReference("773333333",$user);
+            }
         }
         
     }
