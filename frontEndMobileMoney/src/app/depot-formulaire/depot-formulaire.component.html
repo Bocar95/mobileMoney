@@ -8,7 +8,7 @@
 </ion-header>  
      
 <ion-content class="padding">
-  <ion-toolbar>
+  <!-- <ion-toolbar>
     <ion-segment>
       <ion-segment-button  (click)="disabledBeneficiaire()">
         <ion-label>
@@ -21,8 +21,8 @@
         </ion-label>
       </ion-segment-button>
     </ion-segment>
-  </ion-toolbar>
-  <!-- <ion-tabs>
+  </ion-toolbar> -->
+  <ion-tabs>
     <ion-tab-bar slot="top">
       <ion-tab-button (click)="disabledBeneficiaire()">
         <ion-label style="border-bottom: 2px solid #FA4A0C;">Emetteur</ion-label>
@@ -32,7 +32,7 @@
         <ion-label>Bénéficiaire</ion-label>
       </ion-tab-button>
     </ion-tab-bar>
-  </ion-tabs> -->
+  </ion-tabs>
   <div id="container">
     <form [formGroup]="depotForm">
       <div *ngIf="disabledEmetteurInputs == false">
